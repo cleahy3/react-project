@@ -1,5 +1,6 @@
 var AppDispatcher = require('../dispatchers/appDispatcher.js');
 var Constants = require('../constants/gameConstants.js');
+var GameStore = require('../stores/gameStore.js');
 
 
 var NavButton = React.createClass({
@@ -8,10 +9,11 @@ var NavButton = React.createClass({
 	handleClick: function(){
 		switch(this.props.name){
 			case "home":
-
+				console.log('i get in still')
 				AppDispatcher.dispatch({
 		    		action: Constants.HOME
 		   		});
+       
 			break;
 
 			case "login":
@@ -26,6 +28,8 @@ var NavButton = React.createClass({
 		   		});
 			break;
 		}
+
+		return GameStore.getGame();
 	},
 
 	render: function(){
