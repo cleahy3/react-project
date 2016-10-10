@@ -65,14 +65,50 @@
 
 	'use strict';
 	
-	var Login = __webpack_require__(/*! ./login.jsx */ 6);
-	var GameArea = __webpack_require__(/*! ./gameArea.jsx */ 7);
+	var Login = __webpack_require__(/*! ./login.jsx */ 14);
+	var GameArea = __webpack_require__(/*! ./gameArea.jsx */ 15);
+	var GameStore = __webpack_require__(/*! ../stores/gameStore.js */ 10);
 	
 	var Page = React.createClass({
 	  displayName: 'Page',
 	
+	  getInitialState: function getInitialState() {
+	    return {
+	      showHome: false
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	
+	    GameStore.on('showHome', this.showHomePage);
+	  },
+	  showHomePage: function showHomePage() {
+	
+	    this.setState({
+	      showHome: true
+	    });
+	  },
 	  render: function render() {
-	    return React.createElement(Login, null), React.createElement(GameArea, null);
+	
+	    var show;
+	    if (this.state.showHome) {
+	      show = React.createElement(
+	        'div',
+	        null,
+	        'You\'re Home'
+	      );
+	    } else {
+	      show = (React.createElement(
+	        'div',
+	        null,
+	        'Not Home'
+	      ), React.createElement(Login, null), React.createElement(GameArea, null));
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      show
+	    );
 	  }
 	});
 	
@@ -119,8 +155,8 @@
 	'use strict';
 	
 	var Constants = __webpack_require__(/*! ../constants/constants.js */ 4);
-	var appDispatcher = __webpack_require__(/*! ../dispatchers/appDispatcher.js */ 8);
-	var GameStore = __webpack_require__(/*! ../stores/gameStore.js */ 13);
+	var appDispatcher = __webpack_require__(/*! ../dispatchers/appDispatcher.js */ 5);
+	var GameStore = __webpack_require__(/*! ../stores/gameStore.js */ 10);
 	
 	var Button = React.createClass({
 	  displayName: 'Button',
@@ -160,62 +196,7 @@
 	};
 
 /***/ },
-/* 5 */,
-/* 6 */
-/*!*********************************!*\
-  !*** ./js/components/login.jsx ***!
-  \*********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var Button = __webpack_require__(/*! ./button.jsx */ 3);
-	var Constants = __webpack_require__(/*! ../constants/constants.js */ 4);
-	
-	var Login = React.createClass({
-	  displayName: 'Login',
-	
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'p',
-	        null,
-	        'Login Page'
-	      ),
-	      React.createElement(Button, { value: 'Submit', action: this.handleClick })
-	    );
-	  }
-	});
-	
-	module.exports = Login;
-
-/***/ },
-/* 7 */
-/*!************************************!*\
-  !*** ./js/components/gameArea.jsx ***!
-  \************************************/
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	var GameArea = React.createClass({
-	  displayName: "GameArea",
-	
-	  render: function render() {
-	    return React.createElement(
-	      "div",
-	      null,
-	      "Game Areas"
-	    );
-	  }
-	});
-	
-	module.exports = GameArea;
-
-/***/ },
-/* 8 */
+/* 5 */
 /*!*****************************************!*\
   !*** ./js/dispatchers/appDispatcher.js ***!
   \*****************************************/
@@ -223,14 +204,14 @@
 
 	'use strict';
 	
-	var Dispatcher = __webpack_require__(/*! flux */ 9).Dispatcher;
+	var Dispatcher = __webpack_require__(/*! flux */ 6).Dispatcher;
 	
 	var appDispatcher = new Dispatcher();
 	
 	module.exports = appDispatcher;
 
 /***/ },
-/* 9 */
+/* 6 */
 /*!*************************!*\
   !*** ./~/flux/index.js ***!
   \*************************/
@@ -245,11 +226,11 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 	
-	module.exports.Dispatcher = __webpack_require__(/*! ./lib/Dispatcher */ 10);
+	module.exports.Dispatcher = __webpack_require__(/*! ./lib/Dispatcher */ 7);
 
 
 /***/ },
-/* 10 */
+/* 7 */
 /*!**********************************!*\
   !*** ./~/flux/lib/Dispatcher.js ***!
   \**********************************/
@@ -274,7 +255,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 12);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 9);
 	
 	var _prefix = 'ID_';
 	
@@ -488,10 +469,10 @@
 	})();
 	
 	module.exports = Dispatcher;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 11)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 8)))
 
 /***/ },
-/* 11 */
+/* 8 */
 /*!******************************!*\
   !*** ./~/process/browser.js ***!
   \******************************/
@@ -680,7 +661,7 @@
 
 
 /***/ },
-/* 12 */
+/* 9 */
 /*!*********************************!*\
   !*** ./~/fbjs/lib/invariant.js ***!
   \*********************************/
@@ -735,10 +716,10 @@
 	}
 	
 	module.exports = invariant;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 11)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 8)))
 
 /***/ },
-/* 13 */
+/* 10 */
 /*!********************************!*\
   !*** ./js/stores/gameStore.js ***!
   \********************************/
@@ -746,9 +727,9 @@
 
 	'use strict';
 	
-	var EventEmitter = __webpack_require__(/*! events */ 14).EventEmitter;
-	var merge = __webpack_require__(/*! merge */ 15);
-	var appDispatcher = __webpack_require__(/*! ../dispatchers/appDispatcher.js */ 8);
+	var EventEmitter = __webpack_require__(/*! events */ 11).EventEmitter;
+	var merge = __webpack_require__(/*! merge */ 12);
+	var appDispatcher = __webpack_require__(/*! ../dispatchers/appDispatcher.js */ 5);
 	var Constants = __webpack_require__(/*! ../constants/constants.js */ 4);
 	
 	var _game = {};
@@ -768,7 +749,7 @@
 	function handleAction(payload) {
 	  switch (payload.action) {
 	    case Constants.HOME_ACTION:
-	      console.log("HOME CLICKED");
+	      GameStore.emit('showHome');
 	      break;
 	    case Constants.LOGIN_ACTION:
 	      console.log("LOGIN CLICKED");
@@ -782,7 +763,7 @@
 	}
 
 /***/ },
-/* 14 */
+/* 11 */
 /*!****************************!*\
   !*** ./~/events/events.js ***!
   \****************************/
@@ -1093,7 +1074,7 @@
 
 
 /***/ },
-/* 15 */
+/* 12 */
 /*!**************************!*\
   !*** ./~/merge/merge.js ***!
   \**************************/
@@ -1274,10 +1255,10 @@
 		}
 	
 	})(typeof module === 'object' && module && typeof module.exports === 'object' && module.exports);
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 16)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 13)(module)))
 
 /***/ },
-/* 16 */
+/* 13 */
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -1294,6 +1275,60 @@
 		return module;
 	}
 
+
+/***/ },
+/* 14 */
+/*!*********************************!*\
+  !*** ./js/components/login.jsx ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Button = __webpack_require__(/*! ./button.jsx */ 3);
+	var Constants = __webpack_require__(/*! ../constants/constants.js */ 4);
+	
+	var Login = React.createClass({
+	  displayName: 'Login',
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'p',
+	        null,
+	        'Login Page'
+	      ),
+	      React.createElement(Button, { value: 'Submit', action: this.handleClick })
+	    );
+	  }
+	});
+	
+	module.exports = Login;
+
+/***/ },
+/* 15 */
+/*!************************************!*\
+  !*** ./js/components/gameArea.jsx ***!
+  \************************************/
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var GameArea = React.createClass({
+	  displayName: "GameArea",
+	
+	  render: function render() {
+	    return React.createElement(
+	      "div",
+	      null,
+	      "Game Areas"
+	    );
+	  }
+	});
+	
+	module.exports = GameArea;
 
 /***/ }
 /******/ ]);

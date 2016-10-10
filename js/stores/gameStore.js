@@ -22,7 +22,7 @@ appDispatcher.register(handleAction);
 function handleAction(payload){
   switch (payload.action) {
     case Constants.HOME_ACTION :
-      console.log("HOME CLICKED");
+      GameStore.emit('showHome')
       break;
     case Constants.LOGIN_ACTION :
       console.log("LOGIN CLICKED");
