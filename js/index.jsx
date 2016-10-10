@@ -6,5 +6,6 @@ ReactDOM.render(
 		<div>
 		<Nav /> </div>,
 		document.getElementById('container')
+		
 	);
 
