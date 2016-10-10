@@ -45,9 +45,18 @@
 /*!**********************!*\
   !*** ./js/index.jsx ***!
   \**********************/
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
+	
+	var Nav = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./components/nav.jsx\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	
+	ReactDOM.render(React.createElement(
+		'div',
+		null,
+		React.createElement(Nav, null),
+		' '
+	), document.getElementById('container'));
 
 /***/ }
 /******/ ]);
