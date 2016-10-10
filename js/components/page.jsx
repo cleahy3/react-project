@@ -6,40 +6,50 @@ var GameStore = require('../stores/gameStore.js');
 var Page = React.createClass ({
     getInitialState: function( ){
       return {
-        showHome: false
+        showHome: false,
+        showLogin: false
       }
 
     },
     componentDidMount: function(){
 
         GameStore.on('showHome', this.showHomePage);
+        GameStore.on('showLogin', this.showLoginPage);
 
     },
     showHomePage: function(){
 
       this.setState({
-        showHome: true
+        showHome: true,
+        showLogin: false
+      })
+
+    },
+    showLoginPage: function(){
+
+      this.setState({
+        showHome: false,
+        showLogin: true
       })
 
     },
     render: function(){
 
-       var show;
+       var page;
        if (this.state.showHome) {
-         show = (
+         page = (
           <div>You're Home</div>
          )
-       } else {
-         show = (
+       } else if(this.state.showLogin){
+         page = (
            <div>Not Home</div>,
-           <Login />,
-           <GameArea />
+           <Login />
          )
        }
 
       return(
         <div>
-          {show}
+          {page}
         </div>
 
       )

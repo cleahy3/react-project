@@ -74,40 +74,50 @@
 	
 	  getInitialState: function getInitialState() {
 	    return {
-	      showHome: false
+	      showHome: false,
+	      showLogin: false
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
 	
 	    GameStore.on('showHome', this.showHomePage);
+	    GameStore.on('showLogin', this.showLoginPage);
 	  },
 	  showHomePage: function showHomePage() {
 	
 	    this.setState({
-	      showHome: true
+	      showHome: true,
+	      showLogin: false
+	    });
+	  },
+	  showLoginPage: function showLoginPage() {
+	
+	    this.setState({
+	      showHome: false,
+	      showLogin: true
 	    });
 	  },
 	  render: function render() {
 	
-	    var show;
+	    var page;
 	    if (this.state.showHome) {
-	      show = React.createElement(
+	      page = React.createElement(
 	        'div',
 	        null,
 	        'You\'re Home'
 	      );
-	    } else {
-	      show = (React.createElement(
+	    } else if (this.state.showLogin) {
+	      page = (React.createElement(
 	        'div',
 	        null,
 	        'Not Home'
-	      ), React.createElement(Login, null), React.createElement(GameArea, null));
+	      ), React.createElement(Login, null));
 	    }
 	
 	    return React.createElement(
 	      'div',
 	      null,
-	      show
+	      page
 	    );
 	  }
 	});
@@ -752,7 +762,7 @@
 	      GameStore.emit('showHome');
 	      break;
 	    case Constants.LOGIN_ACTION:
-	      console.log("LOGIN CLICKED");
+	      GameStore.emit('showLogin');
 	      break;
 	    case Constants.SUBMIT:
 	      console.log("SUBMIT CLICKED");

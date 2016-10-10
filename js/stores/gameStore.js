@@ -25,7 +25,7 @@ function handleAction(payload){
       GameStore.emit('showHome')
       break;
     case Constants.LOGIN_ACTION :
-      console.log("LOGIN CLICKED");
+      GameStore.emit('showLogin');
       break;
     case Constants.SUBMIT:
       console.log("SUBMIT CLICKED");
