@@ -13,10 +13,7 @@ var GameArea = React.createClass ({
         <Button value="Deal" constants={Constants.DEAL_CARDS} />
         <Table />
         <BetBox />
-      <span id="poker-table" />
-        <Button value="Deal" constants={Constants.DEAL_CARDS} />
-        <Table />
-        <BetBox />
+   
       </div>
     )
   }

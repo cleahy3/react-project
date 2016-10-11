@@ -77,18 +77,6 @@ var GameStore = merge(EventEmitter.prototype, {
     //   ];
     //
 
-var _game = {
-
-};
-
-var GameStore = merge(EventEmitter.prototype , {
-
-  getGame : function () {
-      return _game
-  }
-
-});
-
 
 module.exports = GameStore;
 
