@@ -39,8 +39,9 @@ var GameStore = merge(EventEmitter.prototype, {
         },
         getCards: function() {
             axios.get('http://178.62.86.6/api/deal')
-                .then(function(response) {
-                    console.log(response.data);
+                .then(function(response) {  
+                    player.hand=response.data.user.hand;
+                    console.log(player);
                 }).catch(function(error) {
                     console.log(error);
                 });
