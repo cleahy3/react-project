@@ -13,7 +13,6 @@ var GameArea = React.createClass ({
         <Button value="Deal" constants={Constants.DEAL_CARDS} />
         <Table />
         <BetBox />
-   
       </div>
     )
   }
