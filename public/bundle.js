@@ -1,77 +1,86 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-/******/
+
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-/******/
+
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-/******/
+
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-/******/
+
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
+
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-/******/
+
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
-/******/
+
+
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-/******/
+
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
+
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-/******/
+
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/*!**********************!*\
-  !*** ./js/index.jsx ***!
-  \**********************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+<<<<<<< HEAD
 	
 	var Page = __webpack_require__(/*! ./components/page.jsx */ 1);
 	var Navigation = __webpack_require__(/*! ./components/nav.jsx */ 40);
 	
+=======
+
+	var Page = __webpack_require__(1);
+	var Navigation = __webpack_require__(15);
+
+>>>>>>> 03e89236e0a1e984f0588fde5cc6f6509b4d438c
 	ReactDOM.render(React.createElement(Page, null), document.getElementById('app'));
-	
+
 	ReactDOM.render(React.createElement(Navigation, null), document.getElementById('nav'));
 
 /***/ },
 /* 1 */
-/*!********************************!*\
-  !*** ./js/components/page.jsx ***!
-  \********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+<<<<<<< HEAD
 	
 	var Login = __webpack_require__(/*! ./login.jsx */ 2);
 	var GameArea = __webpack_require__(/*! ./gameArea.jsx */ 39);
 	var GameStore = __webpack_require__(/*! ../stores/gameStore.js */ 10);
 	
+=======
+
+	var Login = __webpack_require__(2);
+	var GameArea = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./gameArea.jsx\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var GameStore = __webpack_require__(10);
+
+>>>>>>> 03e89236e0a1e984f0588fde5cc6f6509b4d438c
 	var Page = React.createClass({
 	  displayName: 'Page',
-	
+
 	  getInitialState: function getInitialState() {
 	    return {
 	      showHome: false,
@@ -79,13 +88,13 @@
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
-	
+
 	    GameStore.on('showHome', this.showHomePage);
 	    GameStore.on('showLogin', this.showLoginPage);
 	    GameStore.on('submitLogin', this.submitLogin);
 	  },
 	  showHomePage: function showHomePage() {
-	
+
 	    this.setState({
 	      showHome: true,
 	      showLogin: false,
@@ -93,7 +102,7 @@
 	    });
 	  },
 	  showLoginPage: function showLoginPage() {
-	
+
 	    this.setState({
 	      showHome: false,
 	      showLogin: true,
@@ -101,7 +110,11 @@
 	    });
 	  },
 	  submitLogin: function submitLogin(name) {
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 03e89236e0a1e984f0588fde5cc6f6509b4d438c
 	    this.setState({
 	      showHome: false,
 	      showLogin: false,
@@ -111,7 +124,7 @@
 	    GameStore.setGame(name);
 	  },
 	  render: function render() {
-	
+
 	    var page;
 	    if (this.state.showHome) {
 	      page = React.createElement(
@@ -124,7 +137,7 @@
 	    } else if (this.state.submitLogin) {
 	      page = React.createElement(GameArea, null);
 	    }
-	
+
 	    return React.createElement(
 	      'div',
 	      null,
@@ -132,24 +145,21 @@
 	    );
 	  }
 	});
-	
+
 	module.exports = Page;
 
 /***/ },
 /* 2 */
-/*!*********************************!*\
-  !*** ./js/components/login.jsx ***!
-  \*********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	var Button = __webpack_require__(/*! ./button.jsx */ 3);
-	var Constants = __webpack_require__(/*! ../constants/constants.js */ 4);
-	
+
+	var Button = __webpack_require__(3);
+	var Constants = __webpack_require__(4);
+
 	var Login = React.createClass({
 	  displayName: 'Login',
-	
+
 	  render: function render() {
 	    return React.createElement(
 	      'div',
@@ -165,25 +175,22 @@
 	    );
 	  }
 	});
-	
+
 	module.exports = Login;
 
 /***/ },
 /* 3 */
-/*!**********************************!*\
-  !*** ./js/components/button.jsx ***!
-  \**********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	var Constants = __webpack_require__(/*! ../constants/constants.js */ 4);
-	var appDispatcher = __webpack_require__(/*! ../dispatchers/appDispatcher.js */ 5);
-	var GameStore = __webpack_require__(/*! ../stores/gameStore.js */ 10);
-	
+
+	var Constants = __webpack_require__(4);
+	var appDispatcher = __webpack_require__(5);
+	var GameStore = __webpack_require__(10);
+
 	var Button = React.createClass({
 	  displayName: 'Button',
-	
+
 	  render: function render() {
 	    return React.createElement(
 	      'button',
@@ -192,35 +199,42 @@
 	    );
 	  },
 	  handleClick: function handleClick() {
-	
+
 	    var data;
 	    if (this.props.value == "Submit") {
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 03e89236e0a1e984f0588fde5cc6f6509b4d438c
 	      data = document.getElementById('login').value;
 	    } else {
 	      data = "";
 	    }
-	
+
 	    appDispatcher.dispatch({
 	      action: this.props.constants,
 	      data: data
 	    });
-	
+
 	    return GameStore.getGame();
 	  }
 	});
-	
+
 	module.exports = Button;
 
 /***/ },
 /* 4 */
+<<<<<<< HEAD
 /*!***********************************!*\
   !*** ./js/constants/constants.js ***!
   \***********************************/
+=======
+>>>>>>> 03e89236e0a1e984f0588fde5cc6f6509b4d438c
 /***/ function(module, exports) {
 
 	"use strict";
-	
+
 	module.exports = {
 	  HOME_ACTION: "onClickHome",
 	  LOGIN_ACTION: "onClickLogin",
@@ -234,24 +248,18 @@
 
 /***/ },
 /* 5 */
-/*!*****************************************!*\
-  !*** ./js/dispatchers/appDispatcher.js ***!
-  \*****************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	var Dispatcher = __webpack_require__(/*! flux */ 6).Dispatcher;
-	
+
+	var Dispatcher = __webpack_require__(6).Dispatcher;
+
 	var appDispatcher = new Dispatcher();
-	
+
 	module.exports = appDispatcher;
 
 /***/ },
 /* 6 */
-/*!*************************!*\
-  !*** ./~/flux/index.js ***!
-  \*************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -262,15 +270,12 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
-	
-	module.exports.Dispatcher = __webpack_require__(/*! ./lib/Dispatcher */ 7);
+
+	module.exports.Dispatcher = __webpack_require__(7);
 
 
 /***/ },
 /* 7 */
-/*!**********************************!*\
-  !*** ./~/flux/lib/Dispatcher.js ***!
-  \**********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -285,17 +290,17 @@
 	 * 
 	 * @preventMunge
 	 */
-	
+
 	'use strict';
-	
+
 	exports.__esModule = true;
-	
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 9);
-	
+
+	var invariant = __webpack_require__(9);
+
 	var _prefix = 'ID_';
-	
+
 	/**
 	 * Dispatcher is used to broadcast payloads to registered callbacks. This is
 	 * different from generic pub-sub systems in two ways:
@@ -383,46 +388,46 @@
 	 * registered callbacks in order: `CountryStore`, `CityStore`, then
 	 * `FlightPriceStore`.
 	 */
-	
+
 	var Dispatcher = (function () {
 	  function Dispatcher() {
 	    _classCallCheck(this, Dispatcher);
-	
+
 	    this._callbacks = {};
 	    this._isDispatching = false;
 	    this._isHandled = {};
 	    this._isPending = {};
 	    this._lastID = 1;
 	  }
-	
+
 	  /**
 	   * Registers a callback to be invoked with every dispatched payload. Returns
 	   * a token that can be used with `waitFor()`.
 	   */
-	
+
 	  Dispatcher.prototype.register = function register(callback) {
 	    !!this._isDispatching ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.register(...): Cannot register in the middle of a dispatch.') : invariant(false) : undefined;
 	    var id = _prefix + this._lastID++;
 	    this._callbacks[id] = callback;
 	    return id;
 	  };
-	
+
 	  /**
 	   * Removes a callback based on its token.
 	   */
-	
+
 	  Dispatcher.prototype.unregister = function unregister(id) {
 	    !!this._isDispatching ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.unregister(...): Cannot unregister in the middle of a dispatch.') : invariant(false) : undefined;
 	    !this._callbacks[id] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.unregister(...): `%s` does not map to a registered callback.', id) : invariant(false) : undefined;
 	    delete this._callbacks[id];
 	  };
-	
+
 	  /**
 	   * Waits for the callbacks specified to be invoked before continuing execution
 	   * of the current callback. This method should only be used by a callback in
 	   * response to a dispatched payload.
 	   */
-	
+
 	  Dispatcher.prototype.waitFor = function waitFor(ids) {
 	    !this._isDispatching ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.waitFor(...): Must be invoked while dispatching.') : invariant(false) : undefined;
 	    for (var ii = 0; ii < ids.length; ii++) {
@@ -435,11 +440,11 @@
 	      this._invokeCallback(id);
 	    }
 	  };
-	
+
 	  /**
 	   * Dispatches a payload to all registered callbacks.
 	   */
-	
+
 	  Dispatcher.prototype.dispatch = function dispatch(payload) {
 	    !!this._isDispatching ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch.') : invariant(false) : undefined;
 	    this._startDispatching(payload);
@@ -454,34 +459,34 @@
 	      this._stopDispatching();
 	    }
 	  };
-	
+
 	  /**
 	   * Is this Dispatcher currently dispatching.
 	   */
-	
+
 	  Dispatcher.prototype.isDispatching = function isDispatching() {
 	    return this._isDispatching;
 	  };
-	
+
 	  /**
 	   * Call the callback stored with the given id. Also do some internal
 	   * bookkeeping.
 	   *
 	   * @internal
 	   */
-	
+
 	  Dispatcher.prototype._invokeCallback = function _invokeCallback(id) {
 	    this._isPending[id] = true;
 	    this._callbacks[id](this._pendingPayload);
 	    this._isHandled[id] = true;
 	  };
-	
+
 	  /**
 	   * Set up bookkeeping needed when dispatching.
 	   *
 	   * @internal
 	   */
-	
+
 	  Dispatcher.prototype._startDispatching = function _startDispatching(payload) {
 	    for (var id in this._callbacks) {
 	      this._isPending[id] = false;
@@ -490,42 +495,39 @@
 	    this._pendingPayload = payload;
 	    this._isDispatching = true;
 	  };
-	
+
 	  /**
 	   * Clear bookkeeping used for dispatching.
 	   *
 	   * @internal
 	   */
-	
+
 	  Dispatcher.prototype._stopDispatching = function _stopDispatching() {
 	    delete this._pendingPayload;
 	    this._isDispatching = false;
 	  };
-	
+
 	  return Dispatcher;
 	})();
-	
+
 	module.exports = Dispatcher;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 8)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ },
 /* 8 */
-/*!******************************!*\
-  !*** ./~/process/browser.js ***!
-  \******************************/
 /***/ function(module, exports) {
 
 	// shim for using process in browser
 	var process = module.exports = {};
-	
+
 	// cached from whatever global is present so that test runners that stub it
 	// don't break things.  But we need to wrap it in a try catch in case it is
 	// wrapped in strict mode code which doesn't define any globals.  It's inside a
 	// function because try/catches deoptimize in certain engines.
-	
+
 	var cachedSetTimeout;
 	var cachedClearTimeout;
-	
+
 	function defaultSetTimout() {
 	    throw new Error('setTimeout has not been defined');
 	}
@@ -574,8 +576,8 @@
 	            return cachedSetTimeout.call(this, fun, 0);
 	        }
 	    }
-	
-	
+
+
 	}
 	function runClearTimeout(marker) {
 	    if (cachedClearTimeout === clearTimeout) {
@@ -600,15 +602,15 @@
 	            return cachedClearTimeout.call(this, marker);
 	        }
 	    }
-	
-	
-	
+
+
+
 	}
 	var queue = [];
 	var draining = false;
 	var currentQueue;
 	var queueIndex = -1;
-	
+
 	function cleanUpNextTick() {
 	    if (!draining || !currentQueue) {
 	        return;
@@ -623,14 +625,14 @@
 	        drainQueue();
 	    }
 	}
-	
+
 	function drainQueue() {
 	    if (draining) {
 	        return;
 	    }
 	    var timeout = runTimeout(cleanUpNextTick);
 	    draining = true;
-	
+
 	    var len = queue.length;
 	    while(len) {
 	        currentQueue = queue;
@@ -647,7 +649,7 @@
 	    draining = false;
 	    runClearTimeout(timeout);
 	}
-	
+
 	process.nextTick = function (fun) {
 	    var args = new Array(arguments.length - 1);
 	    if (arguments.length > 1) {
@@ -660,7 +662,7 @@
 	        runTimeout(drainQueue);
 	    }
 	};
-	
+
 	// v8 likes predictible objects
 	function Item(fun, array) {
 	    this.fun = fun;
@@ -675,9 +677,9 @@
 	process.argv = [];
 	process.version = ''; // empty string to avoid regexp issues
 	process.versions = {};
-	
+
 	function noop() {}
-	
+
 	process.on = noop;
 	process.addListener = noop;
 	process.once = noop;
@@ -685,11 +687,11 @@
 	process.removeListener = noop;
 	process.removeAllListeners = noop;
 	process.emit = noop;
-	
+
 	process.binding = function (name) {
 	    throw new Error('process.binding is not supported');
 	};
-	
+
 	process.cwd = function () { return '/' };
 	process.chdir = function (dir) {
 	    throw new Error('process.chdir is not supported');
@@ -699,9 +701,6 @@
 
 /***/ },
 /* 9 */
-/*!*********************************!*\
-  !*** ./~/fbjs/lib/invariant.js ***!
-  \*********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -713,9 +712,9 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
 	 */
-	
+
 	'use strict';
-	
+
 	/**
 	 * Use invariant() to assert state which your program assumes to be true.
 	 *
@@ -726,14 +725,14 @@
 	 * The invariant message will be stripped in production, but the invariant
 	 * will remain to ensure logic does not differ in production.
 	 */
-	
+
 	function invariant(condition, format, a, b, c, d, e, f) {
 	  if (process.env.NODE_ENV !== 'production') {
 	    if (format === undefined) {
 	      throw new Error('invariant requires an error message argument');
 	    }
 	  }
-	
+
 	  if (!condition) {
 	    var error;
 	    if (format === undefined) {
@@ -746,36 +745,42 @@
 	      }));
 	      error.name = 'Invariant Violation';
 	    }
-	
+
 	    error.framesToPop = 1; // we don't care about invariant's own frame
 	    throw error;
 	  }
 	}
-	
+
 	module.exports = invariant;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 8)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ },
 /* 10 */
-/*!********************************!*\
-  !*** ./js/stores/gameStore.js ***!
-  \********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+<<<<<<< HEAD
 	
 	var EventEmitter = __webpack_require__(/*! events */ 11).EventEmitter;
 	var merge = __webpack_require__(/*! merge */ 12);
 	var appDispatcher = __webpack_require__(/*! ../dispatchers/appDispatcher.js */ 5);
 	var Constants = __webpack_require__(/*! ../constants/constants.js */ 4);
 	var axios = __webpack_require__(/*! axios */ 14);
+=======
+
+	var EventEmitter = __webpack_require__(11).EventEmitter;
+	var merge = __webpack_require__(12);
+	var appDispatcher = __webpack_require__(5);
+	var Constants = __webpack_require__(4);
+	var axios = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"axios\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+>>>>>>> 03e89236e0a1e984f0588fde5cc6f6509b4d438c
 	var _game = {};
 	var cards = {};
 	var deal = {};
 	var player = {};
-	
+
 	var GameStore = merge(EventEmitter.prototype, {
-	
+
 	    getGame: function getGame() {
 	        return _game;
 	    },
@@ -813,7 +818,7 @@
 	    getDeal: function getDeal() {
 	        return deal;
 	    }
-	
+
 	});
 	// var _cards = [
 	//     {
@@ -830,6 +835,7 @@
 	//     }
 	//   ];
 	//
+<<<<<<< HEAD
 	
 	
 	var _game = {};
@@ -842,12 +848,26 @@
 	
 	});
 	
+=======
+
+
+	var _game = {};
+
+	var GameStore = merge(EventEmitter.prototype, {
+
+	    getGame: function getGame() {
+	        return _game;
+	    }
+
+	});
+
+>>>>>>> 03e89236e0a1e984f0588fde5cc6f6509b4d438c
 	module.exports = GameStore;
-	
+
 	appDispatcher.register(handleAction);
-	
+
 	function handleAction(payload) {
-	
+
 	    switch (payload.action) {
 	        case Constants.HOME_ACTION:
 	            GameStore.emit('showHome');
@@ -864,16 +884,13 @@
 	            GameStore.emit('dealCards');
 	            GameStore.getCards();
 	            break;
-	
+
 	        default:
 	    }
 	}
 
 /***/ },
 /* 11 */
-/*!****************************!*\
-  !*** ./~/events/events.js ***!
-  \****************************/
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -896,23 +913,23 @@
 	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 	// USE OR OTHER DEALINGS IN THE SOFTWARE.
-	
+
 	function EventEmitter() {
 	  this._events = this._events || {};
 	  this._maxListeners = this._maxListeners || undefined;
 	}
 	module.exports = EventEmitter;
-	
+
 	// Backwards-compat with node 0.10.x
 	EventEmitter.EventEmitter = EventEmitter;
-	
+
 	EventEmitter.prototype._events = undefined;
 	EventEmitter.prototype._maxListeners = undefined;
-	
+
 	// By default EventEmitters will print a warning if more than 10 listeners are
 	// added to it. This is a useful default which helps finding memory leaks.
 	EventEmitter.defaultMaxListeners = 10;
-	
+
 	// Obviously not all Emitters should be limited to 10. This function allows
 	// that to be increased. Set to zero for unlimited.
 	EventEmitter.prototype.setMaxListeners = function(n) {
@@ -921,13 +938,13 @@
 	  this._maxListeners = n;
 	  return this;
 	};
-	
+
 	EventEmitter.prototype.emit = function(type) {
 	  var er, handler, len, args, i, listeners;
-	
+
 	  if (!this._events)
 	    this._events = {};
-	
+
 	  // If there is no 'error' event listener then throw.
 	  if (type === 'error') {
 	    if (!this._events.error ||
@@ -943,12 +960,12 @@
 	      }
 	    }
 	  }
-	
+
 	  handler = this._events[type];
-	
+
 	  if (isUndefined(handler))
 	    return false;
-	
+
 	  if (isFunction(handler)) {
 	    switch (arguments.length) {
 	      // fast cases
@@ -973,26 +990,26 @@
 	    for (i = 0; i < len; i++)
 	      listeners[i].apply(this, args);
 	  }
-	
+
 	  return true;
 	};
-	
+
 	EventEmitter.prototype.addListener = function(type, listener) {
 	  var m;
-	
+
 	  if (!isFunction(listener))
 	    throw TypeError('listener must be a function');
-	
+
 	  if (!this._events)
 	    this._events = {};
-	
+
 	  // To avoid recursion in the case that type === "newListener"! Before
 	  // adding it to the listeners, first emit "newListener".
 	  if (this._events.newListener)
 	    this.emit('newListener', type,
 	              isFunction(listener.listener) ?
 	              listener.listener : listener);
-	
+
 	  if (!this._events[type])
 	    // Optimize the case of one listener. Don't need the extra array object.
 	    this._events[type] = listener;
@@ -1002,7 +1019,7 @@
 	  else
 	    // Adding the second element, need to change to array.
 	    this._events[type] = [this._events[type], listener];
-	
+
 	  // Check for listener leak
 	  if (isObject(this._events[type]) && !this._events[type].warned) {
 	    if (!isUndefined(this._maxListeners)) {
@@ -1010,7 +1027,7 @@
 	    } else {
 	      m = EventEmitter.defaultMaxListeners;
 	    }
-	
+
 	    if (m && m > 0 && this._events[type].length > m) {
 	      this._events[type].warned = true;
 	      console.error('(node) warning: possible EventEmitter memory ' +
@@ -1023,53 +1040,53 @@
 	      }
 	    }
 	  }
-	
+
 	  return this;
 	};
-	
+
 	EventEmitter.prototype.on = EventEmitter.prototype.addListener;
-	
+
 	EventEmitter.prototype.once = function(type, listener) {
 	  if (!isFunction(listener))
 	    throw TypeError('listener must be a function');
-	
+
 	  var fired = false;
-	
+
 	  function g() {
 	    this.removeListener(type, g);
-	
+
 	    if (!fired) {
 	      fired = true;
 	      listener.apply(this, arguments);
 	    }
 	  }
-	
+
 	  g.listener = listener;
 	  this.on(type, g);
-	
+
 	  return this;
 	};
-	
+
 	// emits a 'removeListener' event iff the listener was removed
 	EventEmitter.prototype.removeListener = function(type, listener) {
 	  var list, position, length, i;
-	
+
 	  if (!isFunction(listener))
 	    throw TypeError('listener must be a function');
-	
+
 	  if (!this._events || !this._events[type])
 	    return this;
-	
+
 	  list = this._events[type];
 	  length = list.length;
 	  position = -1;
-	
+
 	  if (list === listener ||
 	      (isFunction(list.listener) && list.listener === listener)) {
 	    delete this._events[type];
 	    if (this._events.removeListener)
 	      this.emit('removeListener', type, listener);
-	
+
 	  } else if (isObject(list)) {
 	    for (i = length; i-- > 0;) {
 	      if (list[i] === listener ||
@@ -1078,30 +1095,30 @@
 	        break;
 	      }
 	    }
-	
+
 	    if (position < 0)
 	      return this;
-	
+
 	    if (list.length === 1) {
 	      list.length = 0;
 	      delete this._events[type];
 	    } else {
 	      list.splice(position, 1);
 	    }
-	
+
 	    if (this._events.removeListener)
 	      this.emit('removeListener', type, listener);
 	  }
-	
+
 	  return this;
 	};
-	
+
 	EventEmitter.prototype.removeAllListeners = function(type) {
 	  var key, listeners;
-	
+
 	  if (!this._events)
 	    return this;
-	
+
 	  // not listening for removeListener, no need to emit
 	  if (!this._events.removeListener) {
 	    if (arguments.length === 0)
@@ -1110,7 +1127,7 @@
 	      delete this._events[type];
 	    return this;
 	  }
-	
+
 	  // emit removeListener for all listeners on all events
 	  if (arguments.length === 0) {
 	    for (key in this._events) {
@@ -1121,9 +1138,9 @@
 	    this._events = {};
 	    return this;
 	  }
-	
+
 	  listeners = this._events[type];
-	
+
 	  if (isFunction(listeners)) {
 	    this.removeListener(type, listeners);
 	  } else if (listeners) {
@@ -1132,10 +1149,10 @@
 	      this.removeListener(type, listeners[listeners.length - 1]);
 	  }
 	  delete this._events[type];
-	
+
 	  return this;
 	};
-	
+
 	EventEmitter.prototype.listeners = function(type) {
 	  var ret;
 	  if (!this._events || !this._events[type])
@@ -1146,11 +1163,11 @@
 	    ret = this._events[type].slice();
 	  return ret;
 	};
-	
+
 	EventEmitter.prototype.listenerCount = function(type) {
 	  if (this._events) {
 	    var evlistener = this._events[type];
-	
+
 	    if (isFunction(evlistener))
 	      return 1;
 	    else if (evlistener)
@@ -1158,23 +1175,23 @@
 	  }
 	  return 0;
 	};
-	
+
 	EventEmitter.listenerCount = function(emitter, type) {
 	  return emitter.listenerCount(type);
 	};
-	
+
 	function isFunction(arg) {
 	  return typeof arg === 'function';
 	}
-	
+
 	function isNumber(arg) {
 	  return typeof arg === 'number';
 	}
-	
+
 	function isObject(arg) {
 	  return typeof arg === 'object' && arg !== null;
 	}
-	
+
 	function isUndefined(arg) {
 	  return arg === void 0;
 	}
@@ -1182,114 +1199,111 @@
 
 /***/ },
 /* 12 */
-/*!**************************!*\
-  !*** ./~/merge/merge.js ***!
-  \**************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/*!
 	 * @name JavaScript/NodeJS Merge v1.2.0
 	 * @author yeikos
 	 * @repository https://github.com/yeikos/js.merge
-	
+
 	 * Copyright 2014 yeikos - MIT license
 	 * https://raw.github.com/yeikos/js.merge/master/LICENSE
 	 */
-	
+
 	;(function(isNode) {
-	
+
 		/**
 		 * Merge one or more objects 
 		 * @param bool? clone
 		 * @param mixed,... arguments
 		 * @return object
 		 */
-	
+
 		var Public = function(clone) {
-	
+
 			return merge(clone === true, false, arguments);
-	
+
 		}, publicName = 'merge';
-	
+
 		/**
 		 * Merge two or more objects recursively 
 		 * @param bool? clone
 		 * @param mixed,... arguments
 		 * @return object
 		 */
-	
+
 		Public.recursive = function(clone) {
-	
+
 			return merge(clone === true, true, arguments);
-	
+
 		};
-	
+
 		/**
 		 * Clone the input removing any reference
 		 * @param mixed input
 		 * @return mixed
 		 */
-	
+
 		Public.clone = function(input) {
-	
+
 			var output = input,
 				type = typeOf(input),
 				index, size;
-	
+
 			if (type === 'array') {
-	
+
 				output = [];
 				size = input.length;
-	
+
 				for (index=0;index<size;++index)
-	
+
 					output[index] = Public.clone(input[index]);
-	
+
 			} else if (type === 'object') {
-	
+
 				output = {};
-	
+
 				for (index in input)
-	
+
 					output[index] = Public.clone(input[index]);
-	
+
 			}
-	
+
 			return output;
-	
+
 		};
-	
+
 		/**
 		 * Merge two objects recursively
 		 * @param mixed input
 		 * @param mixed extend
 		 * @return mixed
 		 */
-	
+
 		function merge_recursive(base, extend) {
-	
+
 			if (typeOf(base) !== 'object')
-	
+
 				return extend;
-	
+
 			for (var key in extend) {
-	
+
 				if (typeOf(base[key]) === 'object' && typeOf(extend[key]) === 'object') {
-	
+
 					base[key] = merge_recursive(base[key], extend[key]);
-	
+
 				} else {
-	
+
 					base[key] = extend[key];
-	
+
 				}
-	
+
 			}
-	
+
 			return base;
-	
+
 		}
-	
+
 		/**
 		 * Merge two or more objects
 		 * @param bool clone
@@ -1297,46 +1311,46 @@
 		 * @param array argv
 		 * @return object
 		 */
-	
+
 		function merge(clone, recursive, argv) {
-	
+
 			var result = argv[0],
 				size = argv.length;
-	
+
 			if (clone || typeOf(result) !== 'object')
-	
+
 				result = {};
-	
+
 			for (var index=0;index<size;++index) {
-	
+
 				var item = argv[index],
-	
+
 					type = typeOf(item);
-	
+
 				if (type !== 'object') continue;
-	
+
 				for (var key in item) {
-	
+
 					var sitem = clone ? Public.clone(item[key]) : item[key];
-	
+
 					if (recursive) {
-	
+
 						result[key] = merge_recursive(result[key], sitem);
-	
+
 					} else {
-	
+
 						result[key] = sitem;
-	
+
 					}
-	
+
 				}
-	
+
 			}
-	
+
 			return result;
-	
+
 		}
-	
+
 		/**
 		 * Get type of variable
 		 * @param mixed input
@@ -1344,31 +1358,28 @@
 		 *
 		 * @see http://jsperf.com/typeofvar
 		 */
-	
+
 		function typeOf(input) {
-	
+
 			return ({}).toString.call(input).slice(8, -1).toLowerCase();
-	
+
 		}
-	
+
 		if (isNode) {
-	
+
 			module.exports = Public;
-	
+
 		} else {
-	
+
 			window[publicName] = Public;
-	
+
 		}
-	
+
 	})(typeof module === 'object' && module && typeof module.exports === 'object' && module.exports);
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 13)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)(module)))
 
 /***/ },
 /* 13 */
-/*!***********************************!*\
-  !*** (webpack)/buildin/module.js ***!
-  \***********************************/
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -1384,81 +1395,20 @@
 
 
 /***/ },
-/* 14 */
-/*!**************************!*\
-  !*** ./~/axios/index.js ***!
-  \**************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(/*! ./lib/axios */ 15);
-
-/***/ },
+/* 14 */,
 /* 15 */
-/*!******************************!*\
-  !*** ./~/axios/lib/axios.js ***!
-  \******************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	
-	var utils = __webpack_require__(/*! ./utils */ 16);
-	var bind = __webpack_require__(/*! ./helpers/bind */ 17);
-	var Axios = __webpack_require__(/*! ./core/Axios */ 18);
-	
-	/**
-	 * Create an instance of Axios
-	 *
-	 * @param {Object} defaultConfig The default config for the instance
-	 * @return {Axios} A new instance of Axios
-	 */
-	function createInstance(defaultConfig) {
-	  var context = new Axios(defaultConfig);
-	  var instance = bind(Axios.prototype.request, context);
-	
-	  // Copy axios.prototype to instance
-	  utils.extend(instance, Axios.prototype, context);
-	
-	  // Copy context to instance
-	  utils.extend(instance, context);
-	
-	  return instance;
-	}
-	
-	// Create the default instance to be exported
-	var axios = createInstance();
-	
-	// Expose Axios class to allow class inheritance
-	axios.Axios = Axios;
-	
-	// Factory for creating new instances
-	axios.create = function create(defaultConfig) {
-	  return createInstance(defaultConfig);
-	};
-	
-	// Expose Cancel & CancelToken
-	axios.Cancel = __webpack_require__(/*! ./cancel/Cancel */ 36);
-	axios.CancelToken = __webpack_require__(/*! ./cancel/CancelToken */ 37);
-	axios.isCancel = __webpack_require__(/*! ./cancel/isCancel */ 33);
-	
-	// Expose all/spread
-	axios.all = function all(promises) {
-	  return Promise.all(promises);
-	};
-	axios.spread = __webpack_require__(/*! ./helpers/spread */ 38);
-	
-	module.exports = axios;
-	
-	// Allow use of default import syntax in TypeScript
-	module.exports.default = axios;
 
+	var Button = __webpack_require__(3);
+	var Constants = __webpack_require__(4);
+	var GameStore = __webpack_require__(10);
 
-/***/ },
-/* 16 */
-/*!******************************!*\
-  !*** ./~/axios/lib/utils.js ***!
-  \******************************/
-/***/ function(module, exports, __webpack_require__) {
+	var Navigation = React.createClass({
+	  displayName: 'Navigation',
 
+<<<<<<< HEAD
 	'use strict';
 	
 	var bind = __webpack_require__(/*! ./helpers/bind */ 17);
@@ -2987,13 +2937,19 @@
 	var Navigation = React.createClass({
 	  displayName: 'Navigation',
 	
+=======
+>>>>>>> 03e89236e0a1e984f0588fde5cc6f6509b4d438c
 	  getInitialState: function getInitialState() {
 	    return {
 	      loggedIn: false
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 03e89236e0a1e984f0588fde5cc6f6509b4d438c
 	    GameStore.on('submitLogin', this.loggedIn);
 	  },
 	  loggedIn: function loggedIn() {
@@ -3009,7 +2965,11 @@
 	    } else {
 	      loginEndBtn = React.createElement(Button, { value: 'Login', constants: Constants.LOGIN_ACTION });
 	    }
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 03e89236e0a1e984f0588fde5cc6f6509b4d438c
 	    return React.createElement(
 	      'nav',
 	      null,
@@ -3022,6 +2982,7 @@
 	    );
 	  }
 	});
+<<<<<<< HEAD
 	
 	module.exports = Navigation;
 
@@ -3139,7 +3100,10 @@
 	});
 	
 	module.exports = BetBox;
+=======
+
+	module.exports = Navigation;
+>>>>>>> 03e89236e0a1e984f0588fde5cc6f6509b4d438c
 
 /***/ }
 /******/ ]);
-//# sourceMappingURL=bundle.js.map
