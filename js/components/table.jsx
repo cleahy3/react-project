@@ -1,7 +1,7 @@
 var Flop = require('./flop.jsx');
 var GameStore = require('../stores/gameStore.js');
 var Card = require('./card.jsx');
-
+var _cards;
 var Table = React.createClass({
   componentDidMount: function(){
 
@@ -19,6 +19,7 @@ var Table = React.createClass({
       cards: _cards
     });
     //AXIOS REQUEST HERE FOR DEALING CARDS?
+   
   },
   render: function(){
 
