@@ -36,14 +36,16 @@ var Page = React.createClass ({
       })
 
     },
-    submitLogin: function(){
+    submitLogin: function(name){
 
       this.setState({
         showHome: false,
         showLogin: false,
         submitLogin: true
       })
-      GameStore.getData();
+      GameStore.getEnd();
+      GameStore.setGame(name);
+     
     },
     render: function(){
 

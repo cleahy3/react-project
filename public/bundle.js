@@ -100,14 +100,15 @@
 	      submitLogin: false
 	    });
 	  },
-	  submitLogin: function submitLogin() {
+	  submitLogin: function submitLogin(name) {
 	
 	    this.setState({
 	      showHome: false,
 	      showLogin: false,
 	      submitLogin: true
 	    });
-	    GameStore.getData();
+	    GameStore.getEnd();
+	    GameStore.setGame(name);
 	  },
 	  render: function render() {
 	
@@ -194,7 +195,7 @@
 	
 	    var data;
 	    if (this.props.value == "Submit") {
-	      data = document.getElementById('login');
+	      data = document.getElementById('login').value;
 	    } else {
 	      data = "";
 	    }
@@ -775,12 +776,34 @@
 	
 	var GameStore = merge(EventEmitter.prototype, {
 	
-	  getGame: function getGame() {
-	    return _game;
-	  },
-	  getData: function getData() {
-	    axios.get('http://178.62.86.6/api/end').then(function (response) {});
-	  }
+	    getGame: function getGame() {
+	        return _game;
+	    },
+	    getEnd: function getEnd() {
+	        axios.get('http://178.62.86.6/api/end').then(function (response) {
+	            console.log(response);
+	        });
+	    },
+	    setGame: function setGame() {
+	        axios.post('http://178.62.86.6/api/game', [{
+	            "name": player.name,
+	            "isComputer": false
+	        }, {
+	            "name1": "Comp",
+	            "isComputer1": true
+	        }]).then(function (response) {
+	            console.log(response);
+	        }).catch(function (error) {
+	            console.log(error);
+	        });
+	    },
+	    getCards: function getCards() {
+	        axios.get('http://178.62.86.6/api/deal').then(function (response) {
+	            console.log(response.data);
+	        }).catch(function (error) {
+	            console.log(error);
+	        });
+	    }
 	
 	});
 	// var _cards = [
@@ -806,22 +829,25 @@
 	
 	function handleAction(payload) {
 	
-	  switch (payload.action) {
-	    case Constants.HOME_ACTION:
-	      GameStore.emit('showHome');
-	      break;
-	    case Constants.LOGIN_ACTION:
-	      GameStore.emit('showLogin');
-	      break;
-	    case Constants.SUBMIT:
-	      GameStore.emit('submitLogin');
-	      break;
-	    case Constants.DEAL_CARDS:
-	      GameStore.emit('dealCards');
-	      break;
+	    switch (payload.action) {
+	        case Constants.HOME_ACTION:
+	            GameStore.emit('showHome');
+	            break;
+	        case Constants.LOGIN_ACTION:
+	            GameStore.emit('showLogin');
+	            break;
+	        case Constants.SUBMIT:
+	            GameStore.emit('submitLogin');
+	            player.name = payload.data;
+	            console.log(payload.data);
+	            break;
+	        case Constants.DEAL_CARDS:
+	            GameStore.emit('dealCards');
+	            GameStore.getCards();
+	            break;
 	
-	    default:
-	  }
+	        default:
+	    }
 	}
 
 /***/ },
