@@ -7,13 +7,35 @@ var _game = {
 
 };
 
+// var _cards = [
+//     {
+//       number: 1,
+//       suit: "hearts"
+//     },
+//     {
+//       number: 2,
+//       suit: "hearts"
+//     },
+//     {
+//       number: 3,
+//       suit: "hearts"
+//     }
+//   ];
+//
+
 var GameStore = merge(EventEmitter.prototype , {
 
   getGame : function () {
       return _game
   }
 
+
+  // getCards: function(){
+  //   return _cards
+  // }
+
 });
+
 
 module.exports = GameStore;
 
@@ -30,6 +52,9 @@ function handleAction(payload){
       break;
     case Constants.SUBMIT:
       GameStore.emit('submitLogin');
+      break;
+    case Constants.DEAL_CARDS:
+      GameStore.emit('dealCards');
       break;
 
     default:

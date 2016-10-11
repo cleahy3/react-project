@@ -50,7 +50,7 @@
 	'use strict';
 	
 	var Page = __webpack_require__(/*! ./components/page.jsx */ 1);
-	var Navigation = __webpack_require__(/*! ./components/nav.jsx */ 15);
+	var Navigation = __webpack_require__(/*! ./components/nav.jsx */ 17);
 	
 	ReactDOM.render(React.createElement(Page, null), document.getElementById('app'));
 	
@@ -222,7 +222,11 @@
 	  HOME_ACTION: "onClickHome",
 	  LOGIN_ACTION: "onClickLogin",
 	  SUBMIT_CLICKED: "onClickSubmit",
-	  END_ACTION: "onEndSubmit"
+	  END_ACTION: "onEndSubmit",
+	  RAISE_ACTION: "onRaise",
+	  CALL_ACTION: "onCall",
+	  FOLD_ACTION: "onFold",
+	  DEAL_CARDS: "onDeal"
 	};
 
 /***/ },
@@ -764,11 +768,31 @@
 	
 	var _game = {};
 	
+	// var _cards = [
+	//     {
+	//       number: 1,
+	//       suit: "hearts"
+	//     },
+	//     {
+	//       number: 2,
+	//       suit: "hearts"
+	//     },
+	//     {
+	//       number: 3,
+	//       suit: "hearts"
+	//     }
+	//   ];
+	//
+	
 	var GameStore = merge(EventEmitter.prototype, {
 	
 	  getGame: function getGame() {
 	    return _game;
 	  }
+	
+	  // getCards: function(){
+	  //   return _cards
+	  // }
 	
 	});
 	
@@ -787,6 +811,9 @@
 	      break;
 	    case Constants.SUBMIT:
 	      GameStore.emit('submitLogin');
+	      break;
+	    case Constants.DEAL_CARDS:
+	      GameStore.emit('dealCards');
 	      break;
 	
 	    default:
@@ -1312,23 +1339,30 @@
 /*!************************************!*\
   !*** ./js/components/gameArea.jsx ***!
   \************************************/
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
+	
+	var Table = __webpack_require__(/*! ./table.jsx */ 15);
+	var BetBox = __webpack_require__(/*! ./betBox.jsx */ 16);
+	var Constants = __webpack_require__(/*! ../constants/constants.js */ 4);
+	var Button = __webpack_require__(/*! ./button.jsx */ 3);
 	
 	var GameArea = React.createClass({
-	  displayName: "GameArea",
+	  displayName: 'GameArea',
 	
 	  render: function render() {
 	    return React.createElement(
-	      "div",
+	      'div',
 	      null,
 	      React.createElement(
-	        "h1",
+	        'h1',
 	        null,
-	        "Game Area"
+	        'Game Area'
 	      ),
-	      React.createElement("span", { id: "poker-table" })
+	      React.createElement(Button, { value: 'Deal', constants: Constants.DEAL_CARDS }),
+	      React.createElement(Table, null),
+	      React.createElement(BetBox, null)
 	    );
 	  }
 	});
@@ -1337,6 +1371,71 @@
 
 /***/ },
 /* 15 */
+/*!*********************************!*\
+  !*** ./js/components/table.jsx ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Flop = __webpack_require__(/*! ./flop.jsx */ 18);
+	var GameStore = __webpack_require__(/*! ../stores/gameStore.js */ 10);
+	
+	var Table = React.createClass({
+	  displayName: 'Table',
+	
+	  componentDidMount: function componentDidMount() {
+	
+	    GameStore.on('dealCards', this.dealCards);
+	  },
+	  dealCards: function dealCards() {
+	    console.log("DEAL CARDS HERE");
+	    //AXIOS REQUEST HERE FOR DEALING CARDS?
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement('span', { id: 'poker-table' }),
+	      React.createElement(Flop, null)
+	    );
+	  }
+	});
+	
+	module.exports = Table;
+
+/***/ },
+/* 16 */
+/*!**********************************!*\
+  !*** ./js/components/betBox.jsx ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Button = __webpack_require__(/*! ./button.jsx */ 3);
+	var Constants = __webpack_require__(/*! ../constants/constants.js */ 4);
+	
+	var BetBox = React.createClass({
+	  displayName: 'BetBox',
+	
+	  render: function render() {
+	    console.log('bet boxxxxx');
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(Button, { value: 'Raise', constants: Constants.RAISE_ACTION }),
+	      React.createElement('input', { type: 'number', id: 'bet-amount' }),
+	      React.createElement(Button, { value: 'Call', constants: Constants.CALL_ACTION }),
+	      React.createElement(Button, { value: 'Fold', constants: Constants.FOLD_ACTION })
+	    );
+	  }
+	});
+	
+	module.exports = BetBox;
+
+/***/ },
+/* 17 */
 /*!*******************************!*\
   !*** ./js/components/nav.jsx ***!
   \*******************************/
@@ -1388,6 +1487,56 @@
 	});
 	
 	module.exports = Navigation;
+
+/***/ },
+/* 18 */
+/*!********************************!*\
+  !*** ./js/components/flop.jsx ***!
+  \********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Card = __webpack_require__(/*! ./card.jsx */ 19);
+	
+	var Flop = React.createClass({
+	  displayName: 'Flop',
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(Card, null),
+	      React.createElement(Card, null),
+	      React.createElement(Card, null),
+	      React.createElement(Card, null),
+	      React.createElement(Card, null)
+	    );
+	  }
+	});
+	
+	module.exports = Flop;
+
+/***/ },
+/* 19 */
+/*!********************************!*\
+  !*** ./js/components/card.jsx ***!
+  \********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var GameStore = __webpack_require__(/*! ../stores/gameStore.js */ 10);
+	
+	var Card = React.createClass({
+	  displayName: "Card",
+	
+	  render: function render() {
+	    return React.createElement("div", { className: "card" });
+	  }
+	});
+	
+	module.exports = Card;
 
 /***/ }
 /******/ ]);
