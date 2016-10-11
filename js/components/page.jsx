@@ -50,7 +50,7 @@ var Page = React.createClass ({
        var page;
        if (this.state.showHome) {
          page = (
-          <div>You're Home</div>
+          <h1>You're Home</h1>
          )
        } else if(this.state.showLogin){
          page = (

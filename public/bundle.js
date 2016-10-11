@@ -113,7 +113,7 @@
 	    var page;
 	    if (this.state.showHome) {
 	      page = React.createElement(
-	        'div',
+	        'h1',
 	        null,
 	        'You\'re Home'
 	      );

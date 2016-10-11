@@ -1,5 +1,11 @@
-
-
+body{
+  font-family: 'Abhaya Libre', serif;
+}
+h1{
+  margin:0px auto;
+  max-width: 20%;
+  text-align: center;
+}
 button{
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#a90329+0,8f0222+44,6d0019+100;Brown+Red+3D */
     background: #a90329; /* Old browsers */
