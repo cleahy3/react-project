@@ -11,7 +11,8 @@ var Table = React.createClass({
   dealCards: function(){
     console.log("DEAL CARDS HERE");
 
-    var _cards = GameStore.getDeal();
+    var _cards = GameStore.getCards();
+
 
     console.log(_cards)
     this.setState({

@@ -19,7 +19,7 @@ var GameStore = merge(EventEmitter.prototype, {
         getEnd: function() {
             axios.get('http://178.62.86.6/api/end')
                 .then(function(response) {
-                    console.log(response.data);
+                    
                     return response;
 
                 });
@@ -34,7 +34,7 @@ var GameStore = merge(EventEmitter.prototype, {
                 }
 
             ]).then(function(response) {
-                console.log(response.data);
+                
                 return response;
             }).catch(function(error) {
                 console.log(error);
@@ -44,22 +44,27 @@ var GameStore = merge(EventEmitter.prototype, {
             axios.get('http://178.62.86.6/api/deal')
                 .then(function(response) {
                     player.hand=response.data.user.hand;
-                    deal= {
-                      flop: response.data.flop,
-                      user: response.data.user.hand,
-                      computer: response.data.computer.hand
-                    }
-                    console.log(deal);
+                    deal.flop =
+                      response.data.flop;
+                    deal.user = 
+                      response.data.user.hand;
+                    deal.computer= 
+                      response.data.computer.hand;
+                    
+                    console.log(deal)
+                    return deal
+          
                 }).catch(function(error) {
                     console.log(error);
                 });
+               console.log(deal)
+               return deal
 
         },
+        
         getDeal: function(){
-          return deal;
+          return deal
         }
-
-
     })
     // var _cards = [
     //     {
@@ -94,11 +99,10 @@ function handleAction(payload) {
         case Constants.SUBMIT:
             GameStore.emit('submitLogin');
             player.name = payload.data;
-            console.log(payload.data);
             break;
         case Constants.DEAL_CARDS:
             GameStore.emit('dealCards');
-            GameStore.getCards();
+           
             break;
 
         default:
