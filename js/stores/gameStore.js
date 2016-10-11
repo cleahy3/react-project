@@ -2,6 +2,7 @@ var EventEmitter = require('events').EventEmitter;
 var merge = require('merge');
 var appDispatcher = require('../dispatchers/appDispatcher.js');
 var Constants = require('../constants/constants.js');
+
 var axios = require('axios');
 var _game = {};
 var cards = {};
@@ -18,7 +19,7 @@ var GameStore = merge(EventEmitter.prototype, {
         getEnd: function() {
             axios.get('http://178.62.86.6/api/end')
                 .then(function(response) {
-                    console.log(response);
+                    return response;
                 });
         },
         setGame: function() {
@@ -31,14 +32,14 @@ var GameStore = merge(EventEmitter.prototype, {
                 }
 
             ]).then(function(response) {
-                console.log(response);
+                return response;
             }).catch(function(error) {
                 console.log(error);
             });
         },
         getCards: function() {
             axios.get('http://178.62.86.6/api/deal')
-                .then(function(response) {  
+                .then(function(response) {
                     player.hand=response.data.user.hand;
                     console.log(player);
                 }).catch(function(error) {
@@ -64,7 +65,6 @@ var GameStore = merge(EventEmitter.prototype, {
     //   ];
     //
 
-
 var _game = {
 
 };
@@ -77,10 +77,10 @@ var GameStore = merge(EventEmitter.prototype , {
 
 });
 
+
 module.exports = GameStore;
 
 appDispatcher.register(handleAction);
-
 
 function handleAction(payload) {
 
@@ -104,4 +104,3 @@ function handleAction(payload) {
         default:
     }
 }
-
