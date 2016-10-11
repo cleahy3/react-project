@@ -2,6 +2,7 @@ var EventEmitter = require('events').EventEmitter;
 var merge = require('merge');
 var appDispatcher = require('../dispatchers/appDispatcher.js');
 var Constants = require('../constants/constants.js');
+<<<<<<< HEAD
 var axios = require('axios');
 var _game = {};
 var cards = {};
@@ -31,13 +32,48 @@ var GameStore = merge(EventEmitter.prototype, {
                 deal = response;
             })
     }
+=======
+
+var _game = {
+
+};
+
+// var _cards = [
+//     {
+//       number: 1,
+//       suit: "hearts"
+//     },
+//     {
+//       number: 2,
+//       suit: "hearts"
+//     },
+//     {
+//       number: 3,
+//       suit: "hearts"
+//     }
+//   ];
+//
+
+var GameStore = merge(EventEmitter.prototype , {
+
+  getGame : function () {
+      return _game
+  }
+>>>>>>> fc2ab6c4d07353ec3038a9ff80bc6108f8446839
+
+
+  // getCards: function(){
+  //   return _cards
+  // }
 
 });
+
 
 module.exports = GameStore;
 
 appDispatcher.register(handleAction);
 
+<<<<<<< HEAD
 function handleAction(payload) {
 
     switch (payload.action) {
@@ -55,3 +91,24 @@ function handleAction(payload) {
         default:
     }
 }
+=======
+function handleAction(payload){
+
+  switch (payload.action) {
+    case Constants.HOME_ACTION :
+      GameStore.emit('showHome')
+      break;
+    case Constants.LOGIN_ACTION :
+      GameStore.emit('showLogin');
+      break;
+    case Constants.SUBMIT:
+      GameStore.emit('submitLogin');
+      break;
+    case Constants.DEAL_CARDS:
+      GameStore.emit('dealCards');
+      break;
+
+    default:
+  }
+}
+>>>>>>> fc2ab6c4d07353ec3038a9ff80bc6108f8446839
