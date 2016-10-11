@@ -2,7 +2,7 @@ var EventEmitter = require('events').EventEmitter;
 var merge = require('merge');
 var appDispatcher = require('../dispatchers/appDispatcher.js');
 var Constants = require('../constants/constants.js');
-<<<<<<< HEAD
+
 var axios = require('axios');
 var _game = {};
 var cards = {};
@@ -20,24 +20,11 @@ var GameStore = merge(EventEmitter.prototype, {
             .then(function(response) {
 
             });
-        axios.post('http://178.62.86.6/api/game', {
-                'name': "Terry",
-                'name1':'trevor'
-            })
-            .then(function(response) {
-
-            });
-        axios.get('http://178.62.86.6/api/deal')
-            .then(function(response) {
-                deal = response;
-            })
+        
     }
-=======
 
-var _game = {
 
-};
-
+})
 // var _cards = [
 //     {
 //       number: 1,
@@ -54,44 +41,11 @@ var _game = {
 //   ];
 //
 
-var GameStore = merge(EventEmitter.prototype , {
-
-  getGame : function () {
-      return _game
-  }
->>>>>>> fc2ab6c4d07353ec3038a9ff80bc6108f8446839
-
-
-  // getCards: function(){
-  //   return _cards
-  // }
-
-});
-
 
 module.exports = GameStore;
 
 appDispatcher.register(handleAction);
 
-<<<<<<< HEAD
-function handleAction(payload) {
-
-    switch (payload.action) {
-        case Constants.HOME_ACTION:
-            GameStore.emit('showHome')
-            console.log(deal, response);
-            break;
-        case Constants.LOGIN_ACTION:
-            GameStore.emit('showLogin');
-            break;
-        case Constants.SUBMIT:
-            GameStore.emit('submitLogin');
-            break;
-
-        default:
-    }
-}
-=======
 function handleAction(payload){
 
   switch (payload.action) {
@@ -111,4 +65,3 @@ function handleAction(payload){
     default:
   }
 }
->>>>>>> fc2ab6c4d07353ec3038a9ff80bc6108f8446839
