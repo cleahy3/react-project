@@ -43,14 +43,14 @@ var Page = React.createClass ({
         showLogin: false,
         submitLogin: true
       })
-
+      GameStore.getData();
     },
     render: function(){
 
        var page;
        if (this.state.showHome) {
          page = (
-          <h1>You're Home</h1>
+          <h1>Youre Home</h1>
          )
        } else if(this.state.showLogin){
          page = (
