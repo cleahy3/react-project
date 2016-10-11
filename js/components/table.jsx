@@ -19,8 +19,9 @@ var Table = React.createClass({
       cards: _cards
     });
     //AXIOS REQUEST HERE FOR DEALING CARDS?
-   
+
   },
+ 
   render: function(){
 
 
