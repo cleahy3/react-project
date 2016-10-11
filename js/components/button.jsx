@@ -12,7 +12,9 @@ var Button = React.createClass({
 
      var data;
      if (this.props.value == "Submit"){
+
          data = document.getElementById('login').value;
+
      }else{
         data = "";
      }
