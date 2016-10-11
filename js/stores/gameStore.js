@@ -58,7 +58,7 @@ var GameStore = merge(EventEmitter.prototype, {
                     console.log(error);
                 });
                console.log(deal)
-               return deal
+            
 
         },
         
