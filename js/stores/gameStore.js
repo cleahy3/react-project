@@ -18,7 +18,7 @@ var GameStore = merge(EventEmitter.prototype, {
         getEnd: function() {
             axios.get('http://178.62.86.6/api/end')
                 .then(function(response) {
-                    console.log(response);
+                    console.log(response.data);
                 });
         },
         setGame: function() {
@@ -31,7 +31,7 @@ var GameStore = merge(EventEmitter.prototype, {
                 }
 
             ]).then(function(response) {
-                console.log(response);
+                console.log(response.data);
             }).catch(function(error) {
                 console.log(error);
             });
@@ -40,10 +40,19 @@ var GameStore = merge(EventEmitter.prototype, {
             axios.get('http://178.62.86.6/api/deal')
                 .then(function(response) {  
                     player.hand=response.data.user.hand;
-                    console.log(player);
+                    deal= {
+                      flop: response.data.flop,
+                      user: response.data.user.hand,
+                      computer: response.data.computer.hand
+                    }
+                    console.log(response.data);
                 }).catch(function(error) {
                     console.log(error);
                 });
+
+        },
+        getDeal: function(){
+          return deal;
         }
 
 
