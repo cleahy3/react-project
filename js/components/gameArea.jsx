@@ -1,7 +1,10 @@
 var GameArea = React.createClass ({
   render: function(){
     return (
-      <div>Game Areas</div>
+      <div>
+        <h1>Game Area</h1>
+        <span id="poker-table" />
+      </div>
     )
   }
 })

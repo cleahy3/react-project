@@ -6,6 +6,8 @@ var Login = React.createClass ({
       return(
         <div>
           <p>Login Page</p>
+
+          <input type="text" name="name" id="login"/><br/>
           <Button value="Submit" action={this.handleClick} />
         </div>
 

@@ -15,13 +15,15 @@ var Page = React.createClass ({
 
         GameStore.on('showHome', this.showHomePage);
         GameStore.on('showLogin', this.showLoginPage);
+        GameStore.on('submitLogin', this.submitLogin);
 
     },
     showHomePage: function(){
 
       this.setState({
         showHome: true,
-        showLogin: false
+        showLogin: false,
+        submitLogin: false
       })
 
     },
@@ -29,7 +31,17 @@ var Page = React.createClass ({
 
       this.setState({
         showHome: false,
-        showLogin: true
+        showLogin: true,
+        submitLogin: false
+      })
+
+    },
+    submitLogin: function(){
+
+      this.setState({
+        showHome: false,
+        showLogin: false,
+        submitLogin: true
       })
 
     },
@@ -42,8 +54,11 @@ var Page = React.createClass ({
          )
        } else if(this.state.showLogin){
          page = (
-           <div>Not Home</div>,
            <Login />
+         )
+       } else if(this.state.submitLogin){
+         page = (
+           <GameArea/>
          )
        }
 

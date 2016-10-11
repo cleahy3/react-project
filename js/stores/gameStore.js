@@ -20,6 +20,7 @@ module.exports = GameStore;
 appDispatcher.register(handleAction);
 
 function handleAction(payload){
+
   switch (payload.action) {
     case Constants.HOME_ACTION :
       GameStore.emit('showHome')
@@ -28,7 +29,7 @@ function handleAction(payload){
       GameStore.emit('showLogin');
       break;
     case Constants.SUBMIT:
-      console.log("SUBMIT CLICKED");
+      GameStore.emit('submitLogin');
       break;
 
     default:

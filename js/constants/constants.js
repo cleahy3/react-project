@@ -1,5 +1,6 @@
 module.exports = {
   HOME_ACTION : "onClickHome",
   LOGIN_ACTION : "onClickLogin",
-  SUBMIT_CLICKED: "onClickSubmit"
+  SUBMIT_CLICKED: "onClickSubmit",
+  END_ACTION: "onEndSubmit"
 }

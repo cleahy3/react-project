@@ -10,8 +10,16 @@ var Button = React.createClass({
   },
   handleClick: function(){
 
+     var data;
+     if (this.props.value == "Submit"){
+         data = document.getElementById('login')
+     }else{
+        data = "";
+     }
+
       appDispatcher.dispatch({
-        action: this.props.constants
+        action: this.props.constants,
+        data: data
       })
 
     return GameStore.getGame();

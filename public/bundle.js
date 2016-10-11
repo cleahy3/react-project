@@ -50,7 +50,7 @@
 	'use strict';
 	
 	var Page = __webpack_require__(/*! ./components/page.jsx */ 1);
-	var Navigation = __webpack_require__(/*! ./components/nav.jsx */ 2);
+	var Navigation = __webpack_require__(/*! ./components/nav.jsx */ 15);
 	
 	ReactDOM.render(React.createElement(Page, null), document.getElementById('app'));
 	
@@ -65,8 +65,8 @@
 
 	'use strict';
 	
-	var Login = __webpack_require__(/*! ./login.jsx */ 14);
-	var GameArea = __webpack_require__(/*! ./gameArea.jsx */ 15);
+	var Login = __webpack_require__(/*! ./login.jsx */ 2);
+	var GameArea = __webpack_require__(/*! ./gameArea.jsx */ 14);
 	var GameStore = __webpack_require__(/*! ../stores/gameStore.js */ 10);
 	
 	var Page = React.createClass({
@@ -82,19 +82,30 @@
 	
 	    GameStore.on('showHome', this.showHomePage);
 	    GameStore.on('showLogin', this.showLoginPage);
+	    GameStore.on('submitLogin', this.submitLogin);
 	  },
 	  showHomePage: function showHomePage() {
 	
 	    this.setState({
 	      showHome: true,
-	      showLogin: false
+	      showLogin: false,
+	      submitLogin: false
 	    });
 	  },
 	  showLoginPage: function showLoginPage() {
 	
 	    this.setState({
 	      showHome: false,
-	      showLogin: true
+	      showLogin: true,
+	      submitLogin: false
+	    });
+	  },
+	  submitLogin: function submitLogin() {
+	
+	    this.setState({
+	      showHome: false,
+	      showLogin: false,
+	      submitLogin: true
 	    });
 	  },
 	  render: function render() {
@@ -107,11 +118,9 @@
 	        'You\'re Home'
 	      );
 	    } else if (this.state.showLogin) {
-	      page = (React.createElement(
-	        'div',
-	        null,
-	        'Not Home'
-	      ), React.createElement(Login, null));
+	      page = React.createElement(Login, null);
+	    } else if (this.state.submitLogin) {
+	      page = React.createElement(GameArea, null);
 	    }
 	
 	    return React.createElement(
@@ -126,9 +135,9 @@
 
 /***/ },
 /* 2 */
-/*!*******************************!*\
-  !*** ./js/components/nav.jsx ***!
-  \*******************************/
+/*!*********************************!*\
+  !*** ./js/components/login.jsx ***!
+  \*********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -136,24 +145,26 @@
 	var Button = __webpack_require__(/*! ./button.jsx */ 3);
 	var Constants = __webpack_require__(/*! ../constants/constants.js */ 4);
 	
-	var Navigation = React.createClass({
-	  displayName: 'Navigation',
+	var Login = React.createClass({
+	  displayName: 'Login',
 	
 	  render: function render() {
 	    return React.createElement(
-	      'nav',
+	      'div',
 	      null,
 	      React.createElement(
-	        'ul',
+	        'p',
 	        null,
-	        React.createElement(Button, { value: 'Home', constants: Constants.HOME_ACTION }),
-	        React.createElement(Button, { value: 'Login', constants: Constants.LOGIN_ACTION })
-	      )
+	        'Login Page'
+	      ),
+	      React.createElement('input', { type: 'text', name: 'name', id: 'login' }),
+	      React.createElement('br', null),
+	      React.createElement(Button, { value: 'Submit', action: this.handleClick })
 	    );
 	  }
 	});
 	
-	module.exports = Navigation;
+	module.exports = Login;
 
 /***/ },
 /* 3 */
@@ -180,8 +191,16 @@
 	  },
 	  handleClick: function handleClick() {
 	
+	    var data;
+	    if (this.props.value == "Submit") {
+	      data = document.getElementById('login');
+	    } else {
+	      data = "";
+	    }
+	
 	    appDispatcher.dispatch({
-	      action: this.props.constants
+	      action: this.props.constants,
+	      data: data
 	    });
 	
 	    return GameStore.getGame();
@@ -202,7 +221,8 @@
 	module.exports = {
 	  HOME_ACTION: "onClickHome",
 	  LOGIN_ACTION: "onClickLogin",
-	  SUBMIT_CLICKED: "onClickSubmit"
+	  SUBMIT_CLICKED: "onClickSubmit",
+	  END_ACTION: "onEndSubmit"
 	};
 
 /***/ },
@@ -757,6 +777,7 @@
 	appDispatcher.register(handleAction);
 	
 	function handleAction(payload) {
+	
 	  switch (payload.action) {
 	    case Constants.HOME_ACTION:
 	      GameStore.emit('showHome');
@@ -765,7 +786,7 @@
 	      GameStore.emit('showLogin');
 	      break;
 	    case Constants.SUBMIT:
-	      console.log("SUBMIT CLICKED");
+	      GameStore.emit('submitLogin');
 	      break;
 	
 	    default:
@@ -1288,37 +1309,6 @@
 
 /***/ },
 /* 14 */
-/*!*********************************!*\
-  !*** ./js/components/login.jsx ***!
-  \*********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var Button = __webpack_require__(/*! ./button.jsx */ 3);
-	var Constants = __webpack_require__(/*! ../constants/constants.js */ 4);
-	
-	var Login = React.createClass({
-	  displayName: 'Login',
-	
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'p',
-	        null,
-	        'Login Page'
-	      ),
-	      React.createElement(Button, { value: 'Submit', action: this.handleClick })
-	    );
-	  }
-	});
-	
-	module.exports = Login;
-
-/***/ },
-/* 15 */
 /*!************************************!*\
   !*** ./js/components/gameArea.jsx ***!
   \************************************/
@@ -1333,12 +1323,71 @@
 	    return React.createElement(
 	      "div",
 	      null,
-	      "Game Areas"
+	      React.createElement(
+	        "h1",
+	        null,
+	        "Game Area"
+	      ),
+	      React.createElement("span", { id: "poker-table" })
 	    );
 	  }
 	});
 	
 	module.exports = GameArea;
+
+/***/ },
+/* 15 */
+/*!*******************************!*\
+  !*** ./js/components/nav.jsx ***!
+  \*******************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Button = __webpack_require__(/*! ./button.jsx */ 3);
+	var Constants = __webpack_require__(/*! ../constants/constants.js */ 4);
+	var GameStore = __webpack_require__(/*! ../stores/gameStore.js */ 10);
+	
+	var Navigation = React.createClass({
+	  displayName: 'Navigation',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      loggedIn: false
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	
+	    GameStore.on('submitLogin', this.loggedIn);
+	  },
+	  loggedIn: function loggedIn() {
+	    this.setState({
+	      loggedIn: true
+	    });
+	  },
+	  render: function render() {
+	    console.log(this.state.loggedIn);
+	    var loginEndBtn;
+	    if (this.state.loggedIn) {
+	      loginEndBtn = React.createElement(Button, { value: 'End', constants: Constants.END_ACTION });
+	    } else {
+	      loginEndBtn = React.createElement(Button, { value: 'Login', constants: Constants.LOGIN_ACTION });
+	    }
+	
+	    return React.createElement(
+	      'nav',
+	      null,
+	      React.createElement(
+	        'ul',
+	        null,
+	        React.createElement(Button, { value: 'Home', constants: Constants.HOME_ACTION }),
+	        loginEndBtn
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Navigation;
 
 /***/ }
 /******/ ]);

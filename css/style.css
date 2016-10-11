@@ -18,5 +18,17 @@ button{
 
 nav{
     text-align: center;
-  
+
 }
+
+#poker-table {
+  background-image: url("../img/poker-table.png");
+  margin: auto;
+  margin-top: 1em;
+  width: 80%;
+  height: 30em;
+  text-align: center;
+  display: block;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center; }
