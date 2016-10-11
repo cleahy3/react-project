@@ -45,7 +45,7 @@ var GameStore = merge(EventEmitter.prototype, {
                       user: response.data.user.hand,
                       computer: response.data.computer.hand
                     }
-                    console.log(response.data);
+                    console.log(deal);
                 }).catch(function(error) {
                     console.log(error);
                 });
