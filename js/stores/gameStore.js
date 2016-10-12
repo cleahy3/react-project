@@ -61,7 +61,7 @@ var GameStore = merge(EventEmitter.prototype, {
                     return playerCards
                 }).catch(function(error) {
                     console.log(error);
-                });                
+                });
         },
 
         getDeal: function() {
@@ -106,7 +106,6 @@ function handleAction(payload) {
             break;
         case Constants.DEAL_CARDS:
             GameStore.emit('dealCards');
-
             break;
 
         default:
