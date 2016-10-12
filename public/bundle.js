@@ -50,7 +50,7 @@
 	'use strict';
 	
 	var Page = __webpack_require__(/*! ./components/page.jsx */ 1);
-	var Navigation = __webpack_require__(/*! ./components/nav.jsx */ 16);
+	var Navigation = __webpack_require__(/*! ./components/nav.jsx */ 44);
 	
 	ReactDOM.render(React.createElement(Page, null), document.getElementById('app'));
 	
@@ -66,7 +66,7 @@
 	'use strict';
 	
 	var Login = __webpack_require__(/*! ./login.jsx */ 2);
-	var GameArea = __webpack_require__(/*! ./gameArea.jsx */ 11);
+	var GameArea = __webpack_require__(/*! ./gameArea.jsx */ 39);
 	var GameStore = __webpack_require__(/*! ../stores/gameStore.js */ 10);
 	
 	var Page = React.createClass({
@@ -764,12 +764,12 @@
 
 	'use strict';
 	
-	var EventEmitter = __webpack_require__(/*! events */ 17).EventEmitter;
-	var merge = __webpack_require__(/*! merge */ 18);
+	var EventEmitter = __webpack_require__(/*! events */ 11).EventEmitter;
+	var merge = __webpack_require__(/*! merge */ 12);
 	var appDispatcher = __webpack_require__(/*! ../dispatchers/appDispatcher.js */ 5);
 	var Constants = __webpack_require__(/*! ../constants/constants.js */ 4);
 	
-	var axios = __webpack_require__(/*! axios */ 20);
+	var axios = __webpack_require__(/*! axios */ 14);
 	var _game = {
 	    flop: [],
 	    round: 0,
@@ -870,269 +870,6 @@
 
 /***/ },
 /* 11 */
-/*!************************************!*\
-  !*** ./js/components/gameArea.jsx ***!
-  \************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var Table = __webpack_require__(/*! ./table.jsx */ 12);
-	var BetBox = __webpack_require__(/*! ./betBox.jsx */ 15);
-	var Constants = __webpack_require__(/*! ../constants/constants.js */ 4);
-	var Button = __webpack_require__(/*! ./button.jsx */ 3);
-	
-	var GameArea = React.createClass({
-	  displayName: 'GameArea',
-	
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'h1',
-	        null,
-	        'Game Area'
-	      ),
-	      React.createElement(Button, { value: 'Deal', constants: Constants.DEAL_CARDS }),
-	      React.createElement(Table, null),
-	      React.createElement(BetBox, null)
-	    );
-	  }
-	});
-	
-	module.exports = GameArea;
-
-/***/ },
-/* 12 */
-/*!*********************************!*\
-  !*** ./js/components/table.jsx ***!
-  \*********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var Flop = __webpack_require__(/*! ./flop.jsx */ 13);
-	var GameStore = __webpack_require__(/*! ../stores/gameStore.js */ 10);
-	var Card = __webpack_require__(/*! ./card.jsx */ 14);
-	var cardObj;
-	var Table = React.createClass({
-	  displayName: 'Table',
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      cards: {},
-	      isDealt: false
-	    };
-	  },
-	  componentWillMount: function componentWillMount() {
-	
-	    //GameStore.getCards();
-	  },
-	
-	  componentDidMount: function componentDidMount() {
-	
-	    GameStore.on('dealCards', this.dealCards);
-	  },
-	
-	  setCardsState: function setCardsState(cards) {
-	    this.setState({
-	      cards: cards,
-	      isDealt: true
-	    });
-	  },
-	
-	  dealCards: function dealCards() {
-	    console.log("DEAL CARDS HERE");
-	
-	    var deal = GameStore.getCards();
-	    var cards = GameStore.getGame().players[0].hand;
-	
-	    return this.setCardsState(cards);
-	
-	    //AXIOS REQUEST HERE FOR DEALING CARDS?
-	  },
-	
-	  render: function render() {
-	
-	    if (this.state.isDealt) {
-	
-	      var cardList = this.state.cards.map(function (card, i) {
-	
-	        console.log('mapping like a badman');
-	        return React.createElement(Card, { key: i, number: card.number });
-	      });
-	    }
-	
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement('span', { id: 'poker-table' }),
-	      React.createElement(
-	        'div',
-	        null,
-	        cardList
-	      ),
-	      React.createElement(Flop, null)
-	    );
-	  }
-	});
-	
-	module.exports = Table;
-
-/***/ },
-/* 13 */
-/*!********************************!*\
-  !*** ./js/components/flop.jsx ***!
-  \********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var Card = __webpack_require__(/*! ./card.jsx */ 14);
-	
-	var Flop = React.createClass({
-	  displayName: "Flop",
-	
-	  render: function render() {
-	    if (this.props.cards) {
-	      return React.createElement(
-	        "div",
-	        null,
-	        React.createElement(Card, { cn: "flopCard1", card: this.props.cards[0] }),
-	        React.createElement(Card, { cn: "flopCard2", card: this.props.cards[1] }),
-	        React.createElement(Card, { cn: "flopCard3", card: this.props.cards[2] }),
-	        React.createElement(Card, { cn: "flopCard4", card: this.props.cards[3] }),
-	        React.createElement(Card, { cn: "flopCard5", card: this.props.cards[4] })
-	      );
-	    } else {
-	      return React.createElement(
-	        "div",
-	        null,
-	        " "
-	      );
-	    }
-	  }
-	});
-	
-	module.exports = Flop;
-
-/***/ },
-/* 14 */
-/*!********************************!*\
-  !*** ./js/components/card.jsx ***!
-  \********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	var GameStore = __webpack_require__(/*! ../stores/gameStore.js */ 10);
-	
-	var Card = React.createClass({
-	  displayName: "Card",
-	
-	  render: function render() {
-	    return React.createElement(
-	      "div",
-	      { className: "card" },
-	      React.createElement(
-	        "p",
-	        null,
-	        "Number"
-	      ),
-	      this.props.number
-	    );
-	  }
-	});
-	
-	module.exports = Card;
-
-/***/ },
-/* 15 */
-/*!**********************************!*\
-  !*** ./js/components/betBox.jsx ***!
-  \**********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var Button = __webpack_require__(/*! ./button.jsx */ 3);
-	var Constants = __webpack_require__(/*! ../constants/constants.js */ 4);
-	
-	var BetBox = React.createClass({
-	  displayName: 'BetBox',
-	
-	  render: function render() {
-	    console.log('bet boxxxxx');
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(Button, { value: 'Raise', constants: Constants.RAISE_ACTION }),
-	      React.createElement('input', { type: 'number', id: 'bet-amount' }),
-	      React.createElement(Button, { value: 'Call', constants: Constants.CALL_ACTION }),
-	      React.createElement(Button, { value: 'Fold', constants: Constants.FOLD_ACTION })
-	    );
-	  }
-	});
-	
-	module.exports = BetBox;
-
-/***/ },
-/* 16 */
-/*!*******************************!*\
-  !*** ./js/components/nav.jsx ***!
-  \*******************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var Button = __webpack_require__(/*! ./button.jsx */ 3);
-	var Constants = __webpack_require__(/*! ../constants/constants.js */ 4);
-	var GameStore = __webpack_require__(/*! ../stores/gameStore.js */ 10);
-	
-	var Navigation = React.createClass({
-	  displayName: 'Navigation',
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      loggedIn: false
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {
-	
-	    GameStore.on('submitLogin', this.loggedIn);
-	  },
-	  loggedIn: function loggedIn() {
-	    this.setState({
-	      loggedIn: true
-	    });
-	  },
-	  render: function render() {
-	    console.log(this.state.loggedIn);
-	    var loginEndBtn;
-	    if (this.state.loggedIn) {
-	      loginEndBtn = React.createElement(Button, { value: 'End', constants: Constants.END_ACTION });
-	    } else {
-	      loginEndBtn = React.createElement(Button, { value: 'Login', constants: Constants.LOGIN_ACTION });
-	    }
-	
-	    return React.createElement(
-	      'nav',
-	      null,
-	      React.createElement(
-	        'ul',
-	        null,
-	        React.createElement(Button, { value: 'Home', constants: Constants.HOME_ACTION }),
-	        loginEndBtn
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = Navigation;
-
-/***/ },
-/* 17 */
 /*!****************************!*\
   !*** ./~/events/events.js ***!
   \****************************/
@@ -1443,7 +1180,7 @@
 
 
 /***/ },
-/* 18 */
+/* 12 */
 /*!**************************!*\
   !*** ./~/merge/merge.js ***!
   \**************************/
@@ -1624,10 +1361,10 @@
 		}
 	
 	})(typeof module === 'object' && module && typeof module.exports === 'object' && module.exports);
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 19)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../webpack/buildin/module.js */ 13)(module)))
 
 /***/ },
-/* 19 */
+/* 13 */
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
   \***********************************/
@@ -1646,16 +1383,16 @@
 
 
 /***/ },
-/* 20 */
+/* 14 */
 /*!**************************!*\
   !*** ./~/axios/index.js ***!
   \**************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(/*! ./lib/axios */ 21);
+	module.exports = __webpack_require__(/*! ./lib/axios */ 15);
 
 /***/ },
-/* 21 */
+/* 15 */
 /*!******************************!*\
   !*** ./~/axios/lib/axios.js ***!
   \******************************/
@@ -1663,9 +1400,9 @@
 
 	'use strict';
 	
-	var utils = __webpack_require__(/*! ./utils */ 22);
-	var bind = __webpack_require__(/*! ./helpers/bind */ 23);
-	var Axios = __webpack_require__(/*! ./core/Axios */ 24);
+	var utils = __webpack_require__(/*! ./utils */ 16);
+	var bind = __webpack_require__(/*! ./helpers/bind */ 17);
+	var Axios = __webpack_require__(/*! ./core/Axios */ 18);
 	
 	/**
 	 * Create an instance of Axios
@@ -1698,15 +1435,15 @@
 	};
 	
 	// Expose Cancel & CancelToken
-	axios.Cancel = __webpack_require__(/*! ./cancel/Cancel */ 42);
-	axios.CancelToken = __webpack_require__(/*! ./cancel/CancelToken */ 43);
-	axios.isCancel = __webpack_require__(/*! ./cancel/isCancel */ 39);
+	axios.Cancel = __webpack_require__(/*! ./cancel/Cancel */ 36);
+	axios.CancelToken = __webpack_require__(/*! ./cancel/CancelToken */ 37);
+	axios.isCancel = __webpack_require__(/*! ./cancel/isCancel */ 33);
 	
 	// Expose all/spread
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(/*! ./helpers/spread */ 44);
+	axios.spread = __webpack_require__(/*! ./helpers/spread */ 38);
 	
 	module.exports = axios;
 	
@@ -1715,7 +1452,7 @@
 
 
 /***/ },
-/* 22 */
+/* 16 */
 /*!******************************!*\
   !*** ./~/axios/lib/utils.js ***!
   \******************************/
@@ -1723,7 +1460,7 @@
 
 	'use strict';
 	
-	var bind = __webpack_require__(/*! ./helpers/bind */ 23);
+	var bind = __webpack_require__(/*! ./helpers/bind */ 17);
 	
 	/*global toString:true*/
 	
@@ -2023,7 +1760,7 @@
 
 
 /***/ },
-/* 23 */
+/* 17 */
 /*!*************************************!*\
   !*** ./~/axios/lib/helpers/bind.js ***!
   \*************************************/
@@ -2043,7 +1780,7 @@
 
 
 /***/ },
-/* 24 */
+/* 18 */
 /*!***********************************!*\
   !*** ./~/axios/lib/core/Axios.js ***!
   \***********************************/
@@ -2051,12 +1788,12 @@
 
 	'use strict';
 	
-	var defaults = __webpack_require__(/*! ./../defaults */ 25);
-	var utils = __webpack_require__(/*! ./../utils */ 22);
-	var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ 36);
-	var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ 37);
-	var isAbsoluteURL = __webpack_require__(/*! ./../helpers/isAbsoluteURL */ 40);
-	var combineURLs = __webpack_require__(/*! ./../helpers/combineURLs */ 41);
+	var defaults = __webpack_require__(/*! ./../defaults */ 19);
+	var utils = __webpack_require__(/*! ./../utils */ 16);
+	var InterceptorManager = __webpack_require__(/*! ./InterceptorManager */ 30);
+	var dispatchRequest = __webpack_require__(/*! ./dispatchRequest */ 31);
+	var isAbsoluteURL = __webpack_require__(/*! ./../helpers/isAbsoluteURL */ 34);
+	var combineURLs = __webpack_require__(/*! ./../helpers/combineURLs */ 35);
 	
 	/**
 	 * Create a new instance of Axios
@@ -2137,7 +1874,7 @@
 
 
 /***/ },
-/* 25 */
+/* 19 */
 /*!*********************************!*\
   !*** ./~/axios/lib/defaults.js ***!
   \*********************************/
@@ -2145,8 +1882,8 @@
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
-	var utils = __webpack_require__(/*! ./utils */ 22);
-	var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ 26);
+	var utils = __webpack_require__(/*! ./utils */ 16);
+	var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ 20);
 	
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -2163,10 +1900,10 @@
 	  var adapter;
 	  if (typeof XMLHttpRequest !== 'undefined') {
 	    // For browsers use XHR adapter
-	    adapter = __webpack_require__(/*! ./adapters/xhr */ 27);
+	    adapter = __webpack_require__(/*! ./adapters/xhr */ 21);
 	  } else if (typeof process !== 'undefined') {
 	    // For node use HTTP adapter
-	    adapter = __webpack_require__(/*! ./adapters/http */ 27);
+	    adapter = __webpack_require__(/*! ./adapters/http */ 21);
 	  }
 	  return adapter;
 	}
@@ -2233,7 +1970,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 8)))
 
 /***/ },
-/* 26 */
+/* 20 */
 /*!****************************************************!*\
   !*** ./~/axios/lib/helpers/normalizeHeaderName.js ***!
   \****************************************************/
@@ -2241,7 +1978,7 @@
 
 	'use strict';
 	
-	var utils = __webpack_require__(/*! ../utils */ 22);
+	var utils = __webpack_require__(/*! ../utils */ 16);
 	
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -2254,7 +1991,7 @@
 
 
 /***/ },
-/* 27 */
+/* 21 */
 /*!*************************************!*\
   !*** ./~/axios/lib/adapters/xhr.js ***!
   \*************************************/
@@ -2262,13 +1999,13 @@
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
-	var utils = __webpack_require__(/*! ./../utils */ 22);
-	var settle = __webpack_require__(/*! ./../core/settle */ 28);
-	var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ 31);
-	var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ 32);
-	var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ 33);
-	var createError = __webpack_require__(/*! ../core/createError */ 29);
-	var btoa = (typeof window !== 'undefined' && window.btoa) || __webpack_require__(/*! ./../helpers/btoa */ 34);
+	var utils = __webpack_require__(/*! ./../utils */ 16);
+	var settle = __webpack_require__(/*! ./../core/settle */ 22);
+	var buildURL = __webpack_require__(/*! ./../helpers/buildURL */ 25);
+	var parseHeaders = __webpack_require__(/*! ./../helpers/parseHeaders */ 26);
+	var isURLSameOrigin = __webpack_require__(/*! ./../helpers/isURLSameOrigin */ 27);
+	var createError = __webpack_require__(/*! ../core/createError */ 23);
+	var btoa = (typeof window !== 'undefined' && window.btoa) || __webpack_require__(/*! ./../helpers/btoa */ 28);
 	
 	module.exports = function xhrAdapter(config) {
 	  return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -2364,7 +2101,7 @@
 	    // This is only done if running in a standard browser environment.
 	    // Specifically not if we're in a web worker, or react-native.
 	    if (utils.isStandardBrowserEnv()) {
-	      var cookies = __webpack_require__(/*! ./../helpers/cookies */ 35);
+	      var cookies = __webpack_require__(/*! ./../helpers/cookies */ 29);
 	
 	      // Add xsrf header
 	      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -2437,7 +2174,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 8)))
 
 /***/ },
-/* 28 */
+/* 22 */
 /*!************************************!*\
   !*** ./~/axios/lib/core/settle.js ***!
   \************************************/
@@ -2445,7 +2182,7 @@
 
 	'use strict';
 	
-	var createError = __webpack_require__(/*! ./createError */ 29);
+	var createError = __webpack_require__(/*! ./createError */ 23);
 	
 	/**
 	 * Resolve or reject a Promise based on response status.
@@ -2471,7 +2208,7 @@
 
 
 /***/ },
-/* 29 */
+/* 23 */
 /*!*****************************************!*\
   !*** ./~/axios/lib/core/createError.js ***!
   \*****************************************/
@@ -2479,7 +2216,7 @@
 
 	'use strict';
 	
-	var enhanceError = __webpack_require__(/*! ./enhanceError */ 30);
+	var enhanceError = __webpack_require__(/*! ./enhanceError */ 24);
 	
 	/**
 	 * Create an Error with the specified message, config, error code, and response.
@@ -2497,7 +2234,7 @@
 
 
 /***/ },
-/* 30 */
+/* 24 */
 /*!******************************************!*\
   !*** ./~/axios/lib/core/enhanceError.js ***!
   \******************************************/
@@ -2525,7 +2262,7 @@
 
 
 /***/ },
-/* 31 */
+/* 25 */
 /*!*****************************************!*\
   !*** ./~/axios/lib/helpers/buildURL.js ***!
   \*****************************************/
@@ -2533,7 +2270,7 @@
 
 	'use strict';
 	
-	var utils = __webpack_require__(/*! ./../utils */ 22);
+	var utils = __webpack_require__(/*! ./../utils */ 16);
 	
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -2602,7 +2339,7 @@
 
 
 /***/ },
-/* 32 */
+/* 26 */
 /*!*********************************************!*\
   !*** ./~/axios/lib/helpers/parseHeaders.js ***!
   \*********************************************/
@@ -2610,7 +2347,7 @@
 
 	'use strict';
 	
-	var utils = __webpack_require__(/*! ./../utils */ 22);
+	var utils = __webpack_require__(/*! ./../utils */ 16);
 	
 	/**
 	 * Parse headers into an object
@@ -2648,7 +2385,7 @@
 
 
 /***/ },
-/* 33 */
+/* 27 */
 /*!************************************************!*\
   !*** ./~/axios/lib/helpers/isURLSameOrigin.js ***!
   \************************************************/
@@ -2656,7 +2393,7 @@
 
 	'use strict';
 	
-	var utils = __webpack_require__(/*! ./../utils */ 22);
+	var utils = __webpack_require__(/*! ./../utils */ 16);
 	
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -2725,7 +2462,7 @@
 
 
 /***/ },
-/* 34 */
+/* 28 */
 /*!*************************************!*\
   !*** ./~/axios/lib/helpers/btoa.js ***!
   \*************************************/
@@ -2770,7 +2507,7 @@
 
 
 /***/ },
-/* 35 */
+/* 29 */
 /*!****************************************!*\
   !*** ./~/axios/lib/helpers/cookies.js ***!
   \****************************************/
@@ -2778,7 +2515,7 @@
 
 	'use strict';
 	
-	var utils = __webpack_require__(/*! ./../utils */ 22);
+	var utils = __webpack_require__(/*! ./../utils */ 16);
 	
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -2832,7 +2569,7 @@
 
 
 /***/ },
-/* 36 */
+/* 30 */
 /*!************************************************!*\
   !*** ./~/axios/lib/core/InterceptorManager.js ***!
   \************************************************/
@@ -2840,7 +2577,7 @@
 
 	'use strict';
 	
-	var utils = __webpack_require__(/*! ./../utils */ 22);
+	var utils = __webpack_require__(/*! ./../utils */ 16);
 	
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -2893,7 +2630,7 @@
 
 
 /***/ },
-/* 37 */
+/* 31 */
 /*!*********************************************!*\
   !*** ./~/axios/lib/core/dispatchRequest.js ***!
   \*********************************************/
@@ -2901,10 +2638,10 @@
 
 	'use strict';
 	
-	var utils = __webpack_require__(/*! ./../utils */ 22);
-	var transformData = __webpack_require__(/*! ./transformData */ 38);
-	var isCancel = __webpack_require__(/*! ../cancel/isCancel */ 39);
-	var defaults = __webpack_require__(/*! ../defaults */ 25);
+	var utils = __webpack_require__(/*! ./../utils */ 16);
+	var transformData = __webpack_require__(/*! ./transformData */ 32);
+	var isCancel = __webpack_require__(/*! ../cancel/isCancel */ 33);
+	var defaults = __webpack_require__(/*! ../defaults */ 19);
 	
 	/**
 	 * Throws a `Cancel` if cancellation has been requested.
@@ -2981,7 +2718,7 @@
 
 
 /***/ },
-/* 38 */
+/* 32 */
 /*!*******************************************!*\
   !*** ./~/axios/lib/core/transformData.js ***!
   \*******************************************/
@@ -2989,7 +2726,7 @@
 
 	'use strict';
 	
-	var utils = __webpack_require__(/*! ./../utils */ 22);
+	var utils = __webpack_require__(/*! ./../utils */ 16);
 	
 	/**
 	 * Transform the data for a request or a response
@@ -3010,7 +2747,7 @@
 
 
 /***/ },
-/* 39 */
+/* 33 */
 /*!****************************************!*\
   !*** ./~/axios/lib/cancel/isCancel.js ***!
   \****************************************/
@@ -3024,7 +2761,7 @@
 
 
 /***/ },
-/* 40 */
+/* 34 */
 /*!**********************************************!*\
   !*** ./~/axios/lib/helpers/isAbsoluteURL.js ***!
   \**********************************************/
@@ -3047,7 +2784,7 @@
 
 
 /***/ },
-/* 41 */
+/* 35 */
 /*!********************************************!*\
   !*** ./~/axios/lib/helpers/combineURLs.js ***!
   \********************************************/
@@ -3068,7 +2805,7 @@
 
 
 /***/ },
-/* 42 */
+/* 36 */
 /*!**************************************!*\
   !*** ./~/axios/lib/cancel/Cancel.js ***!
   \**************************************/
@@ -3096,7 +2833,7 @@
 
 
 /***/ },
-/* 43 */
+/* 37 */
 /*!*******************************************!*\
   !*** ./~/axios/lib/cancel/CancelToken.js ***!
   \*******************************************/
@@ -3104,7 +2841,7 @@
 
 	'use strict';
 	
-	var Cancel = __webpack_require__(/*! ./Cancel */ 42);
+	var Cancel = __webpack_require__(/*! ./Cancel */ 36);
 	
 	/**
 	 * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -3162,7 +2899,7 @@
 
 
 /***/ },
-/* 44 */
+/* 38 */
 /*!***************************************!*\
   !*** ./~/axios/lib/helpers/spread.js ***!
   \***************************************/
@@ -3196,6 +2933,270 @@
 	  };
 	};
 
+
+/***/ },
+/* 39 */
+/*!************************************!*\
+  !*** ./js/components/gameArea.jsx ***!
+  \************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Table = __webpack_require__(/*! ./table.jsx */ 40);
+	var BetBox = __webpack_require__(/*! ./betBox.jsx */ 43);
+	var Constants = __webpack_require__(/*! ../constants/constants.js */ 4);
+	var Button = __webpack_require__(/*! ./button.jsx */ 3);
+	
+	var GameArea = React.createClass({
+	  displayName: 'GameArea',
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Game Area'
+	      ),
+	      React.createElement(Button, { value: 'Deal', constants: Constants.DEAL_CARDS }),
+	      React.createElement(Table, null),
+	      React.createElement(BetBox, null)
+	    );
+	  }
+	});
+	
+	module.exports = GameArea;
+
+/***/ },
+/* 40 */
+/*!*********************************!*\
+  !*** ./js/components/table.jsx ***!
+  \*********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Flop = __webpack_require__(/*! ./flop.jsx */ 41);
+	var GameStore = __webpack_require__(/*! ../stores/gameStore.js */ 10);
+	var Card = __webpack_require__(/*! ./card.jsx */ 42);
+	var cardObj;
+	var Table = React.createClass({
+	  displayName: 'Table',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      cards: {},
+	      isDealt: false
+	    };
+	  },
+	  componentWillMount: function componentWillMount() {
+	
+	    //GameStore.getCards();
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	
+	    GameStore.on('dealCards', this.dealCards);
+	  },
+	
+	  setCardsState: function setCardsState(cards) {
+	    this.setState({
+	      cards: cards,
+	      isDealt: true
+	    });
+	  },
+	
+	  dealCards: function dealCards() {
+	    console.log("DEAL CARDS HERE");
+	
+	    var deal = GameStore.getCards();
+	    var cards = GameStore.getGame().players[0].hand;
+	
+	    return this.setCardsState(cards);
+	
+	    //AXIOS REQUEST HERE FOR DEALING CARDS? NOPE
+	  },
+	
+	  render: function render() {
+	
+	    if (this.state.isDealt) {
+	
+	      var cardList = this.state.cards.map(function (card, i) {
+	        var className = i + "user";
+	        console.log(card);
+	        return React.createElement(Card, { key: i, number: card.Number, suit: card.Suit, cn: className });
+	      });
+	    }
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement('span', { id: 'poker-table' }),
+	      React.createElement(
+	        'div',
+	        null,
+	        cardList
+	      ),
+	      React.createElement(Flop, null)
+	    );
+	  }
+	});
+	
+	module.exports = Table;
+
+/***/ },
+/* 41 */
+/*!********************************!*\
+  !*** ./js/components/flop.jsx ***!
+  \********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var Card = __webpack_require__(/*! ./card.jsx */ 42);
+	
+	var Flop = React.createClass({
+	  displayName: "Flop",
+	
+	  render: function render() {
+	    if (this.props.cards) {
+	      return React.createElement(
+	        "div",
+	        null,
+	        React.createElement(Card, { cn: "flopCard1", card: this.props.cards[0] }),
+	        React.createElement(Card, { cn: "flopCard2", card: this.props.cards[1] }),
+	        React.createElement(Card, { cn: "flopCard3", card: this.props.cards[2] }),
+	        React.createElement(Card, { cn: "flopCard4", card: this.props.cards[3] }),
+	        React.createElement(Card, { cn: "flopCard5", card: this.props.cards[4] })
+	      );
+	    } else {
+	      return React.createElement(
+	        "div",
+	        null,
+	        " "
+	      );
+	    }
+	  }
+	});
+	
+	module.exports = Flop;
+
+/***/ },
+/* 42 */
+/*!********************************!*\
+  !*** ./js/components/card.jsx ***!
+  \********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var GameStore = __webpack_require__(/*! ../stores/gameStore.js */ 10);
+	
+	var Card = React.createClass({
+	  displayName: 'Card',
+	
+	  render: function render() {
+	    console.log(this.props);
+	    return React.createElement(
+	      'div',
+	      { className: this.props.cn },
+	      React.createElement(
+	        'p',
+	        null,
+	        this.props.number,
+	        this.props.suit
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Card;
+
+/***/ },
+/* 43 */
+/*!**********************************!*\
+  !*** ./js/components/betBox.jsx ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Button = __webpack_require__(/*! ./button.jsx */ 3);
+	var Constants = __webpack_require__(/*! ../constants/constants.js */ 4);
+	
+	var BetBox = React.createClass({
+	  displayName: 'BetBox',
+	
+	  render: function render() {
+	    console.log('bet boxxxxx');
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(Button, { value: 'Raise', constants: Constants.RAISE_ACTION }),
+	      React.createElement('input', { type: 'number', id: 'bet-amount' }),
+	      React.createElement(Button, { value: 'Call', constants: Constants.CALL_ACTION }),
+	      React.createElement(Button, { value: 'Fold', constants: Constants.FOLD_ACTION })
+	    );
+	  }
+	});
+	
+	module.exports = BetBox;
+
+/***/ },
+/* 44 */
+/*!*******************************!*\
+  !*** ./js/components/nav.jsx ***!
+  \*******************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var Button = __webpack_require__(/*! ./button.jsx */ 3);
+	var Constants = __webpack_require__(/*! ../constants/constants.js */ 4);
+	var GameStore = __webpack_require__(/*! ../stores/gameStore.js */ 10);
+	
+	var Navigation = React.createClass({
+	  displayName: 'Navigation',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      loggedIn: false
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	
+	    GameStore.on('submitLogin', this.loggedIn);
+	  },
+	  loggedIn: function loggedIn() {
+	    this.setState({
+	      loggedIn: true
+	    });
+	  },
+	  render: function render() {
+	    console.log(this.state.loggedIn);
+	    var loginEndBtn;
+	    if (this.state.loggedIn) {
+	      loginEndBtn = React.createElement(Button, { value: 'End', constants: Constants.END_ACTION });
+	    } else {
+	      loginEndBtn = React.createElement(Button, { value: 'Login', constants: Constants.LOGIN_ACTION });
+	    }
+	
+	    return React.createElement(
+	      'nav',
+	      null,
+	      React.createElement(
+	        'ul',
+	        null,
+	        React.createElement(Button, { value: 'Home', constants: Constants.HOME_ACTION }),
+	        loginEndBtn
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = Navigation;
 
 /***/ }
 /******/ ]);

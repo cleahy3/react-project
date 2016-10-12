@@ -3,10 +3,11 @@ var GameStore = require('../stores/gameStore.js');
 
 var Card = React.createClass({
   render: function(){
+  	console.log(this.props);
     return (
-      <div className="card">
-        <p>Number</p>
-        {this.props.number}
+      <div className={this.props.cn}>
+        <p>{this.props.number}
+        {this.props.suit}</p>
       </div>
     )
   }

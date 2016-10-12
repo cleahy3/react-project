@@ -35,7 +35,7 @@ var Table = React.createClass({
 
     return this.setCardsState(cards);
 
-    //AXIOS REQUEST HERE FOR DEALING CARDS?
+    //AXIOS REQUEST HERE FOR DEALING CARDS? NOPE
 
   },
 
@@ -44,10 +44,10 @@ var Table = React.createClass({
     if (this.state.isDealt) {
 
       var cardList = this.state.cards.map( function(card, i){
-
-        console.log('mapping like a badman')
+        var className= i+"user";
+        console.log(card)
         return(
-          <Card key={i} number={card.number}/>
+          <Card key={i} number={card.Number} suit={card.Suit} cn={className} />
           )
       })
     }
