@@ -16,7 +16,7 @@ var Button = React.createClass({
          data = document.getElementById('login').value;
 
      }else if(this.props.value == Constants.DEAL_CARDS){
-        
+
 
      }
      else{

@@ -49,19 +49,20 @@ var GameStore = merge(EventEmitter.prototype, {
                     deal.user =
                         response.data.user.hand;
                     deal.computer =
-                        response.data.computer.hand
-                    console.log(deal)
+                        response.data.computer.hand;
+
                     return deal
 
                 }).catch(function(error) {
                     console.log(error);
                 });
-            console.log(deal)
 
+                return deal
 
         },
 
         getDeal: function() {
+          console.log(deal)
             return deal
         }
     })

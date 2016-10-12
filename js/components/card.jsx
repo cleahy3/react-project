@@ -5,7 +5,8 @@ var Card = React.createClass({
   render: function(){
     return (
       <div className="card">
-      	{this.props.card}
+        <p>Number</p>
+        {this.props.number}
       </div>
     )
   }
