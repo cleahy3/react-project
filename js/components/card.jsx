@@ -6,7 +6,9 @@ var Card = React.createClass({
     return (
       <div className={this.props.cn}>
         <p>{this.props.number}
-        {this.props.suit}</p>
+        {this.props.suit}
+        {this.props.symbol}
+        </p>
       </div>
     )
   }
