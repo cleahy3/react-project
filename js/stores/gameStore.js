@@ -55,11 +55,10 @@ var GameStore = merge(EventEmitter.prototype, {
                     _game.players[0].hand.push(response.data.user.hand[0]);
                     _game.players[0].hand.push(response.data.user.hand[1]);
                     _game.flop.push(response.data.flop);
-
-                    return playerCards
                 }).catch(function(error) {
                     console.log(error);
                 });
+
         },
 
         getDeal: function() {
@@ -93,7 +92,7 @@ function handleAction(payload) {
 
     switch (payload.action) {
         case Constants.HOME_ACTION:
-            GameStore.emit('showHome')
+            GameStore.emit('showHome');
             break;
         case Constants.LOGIN_ACTION:
             GameStore.emit('showLogin');
@@ -103,13 +102,14 @@ function handleAction(payload) {
             player.name = payload.data;
             break;
         case Constants.DEAL_CARDS:
-            GameStore.emit('dealCards');
+            GameStore.getCards();
+            return GameStore.emit('dealCards');
             break;
         case Constants.END_ACTION:
             GameStore.emit('endAction');
             this.reload();
             break;
-
         default:
+            break;
     }
 }
