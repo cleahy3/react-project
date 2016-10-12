@@ -5,48 +5,34 @@ var cardObj;
 var Table = React.createClass({
   getInitialState: function(){
     return {
-      cards: {},
+      game: GameStore.getGame(),
       isDealt: false
     }
   },
   componentWillMount: function(){
 
     //GameStore.getCards();
+
   },
 
   componentDidMount: function(){
-
-    GameStore.on('dealCards', this.dealCards);
-
+    GameStore.on('dealCards', this.setCardsState);
   },
 
-  setCardsState: function(cards, flopCards) {
+  setCardsState: function() {
     this.setState({
-      cards: cards,
-      flop: flopCards,
+      game: GameStore.getGame(),
       isDealt: true
     });
   },
 
-  dealCards: function(){
-    console.log("DEAL CARDS HERE");
-
-    var deal = GameStore.getCards();
-    var cards = GameStore.getGame().players[0].hand;
-    var flopCards = GameStore.getGame().flop;
-
-    return this.setCardsState(cards, flopCards);
-
-    //AXIOS REQUEST HERE FOR DEALING CARDS? NOPE
-
-  },
-
   render: function(){
-    console.log(this.state);
-    if(typeof this.state.cards !== "undefined"){
+    if(this.state.game !== {}){
       if (this.state.isDealt) {
+        var playerCards = this.state.game.players[0].hand;
+        var flopCards = this.state.game.flop;
 
-        var cardList = this.state.cards.map( function(card, i){
+        var cardList = playerCards.map( function(card, i){
           var className= "user" + i;
           card = cardHandle(card);
           console.log(card)
@@ -54,7 +40,7 @@ var Table = React.createClass({
              <Card key={i} number={card.number} symbol={card.symbol} cn={className} />
             )
         })
-        var flopCards = this.state.flop[0].map( function(card, i){
+        var flop = flopCards.map( function(card, i){
           var className = "flop"+i;
           card = cardHandle(card);
 
@@ -66,14 +52,14 @@ var Table = React.createClass({
     }
     else{
       var cardList = "Click Deal";
-      var flopCards = "Click Deal";
+      var flop = "Click Deal";
     }
 
     return (
       <div>
         <span id="poker-table"></span>
         <div className="userCards">{cardList}</div>
-        <div className="flopCards">{flopCards}  </div>
+        <div className="flopCards">{flop}  </div>
         <Flop />
       </div>
     )

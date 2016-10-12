@@ -782,8 +782,6 @@
 	            _game.players[0].hand.push(response.data.user.hand[0]);
 	            _game.players[0].hand.push(response.data.user.hand[1]);
 	            _game.flop.push(response.data.flop);
-
-	            return playerCards;
 	        }).catch(function (error) {
 	            console.log(error);
 	        });
@@ -829,10 +827,11 @@
 	            player.name = payload.data;
 	            break;
 	        case Constants.DEAL_CARDS:
-	            GameStore.emit('dealCards');
+	            GameStore.getCards();
+	            return GameStore.emit('dealCards');
 	            break;
-
 	        default:
+	            break;
 	    }
 	}
 
@@ -2865,52 +2864,40 @@
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      cards: {},
+	      game: GameStore.getGame(),
 	      isDealt: false
 	    };
 	  },
 	  componentWillMount: function componentWillMount() {
 
 	    //GameStore.getCards();
+
 	  },
 
 	  componentDidMount: function componentDidMount() {
-
-	    GameStore.on('dealCards', this.dealCards);
+	    GameStore.on('dealCards', this.setCardsState);
 	  },
 
-	  setCardsState: function setCardsState(cards, flopCards) {
+	  setCardsState: function setCardsState() {
 	    this.setState({
-	      cards: cards,
-	      flop: flopCards,
+	      game: GameStore.getGame(),
 	      isDealt: true
 	    });
 	  },
 
-	  dealCards: function dealCards() {
-	    console.log("DEAL CARDS HERE");
-
-	    var deal = GameStore.getCards();
-	    var cards = GameStore.getGame().players[0].hand;
-	    var flopCards = GameStore.getGame().flop;
-
-	    return this.setCardsState(cards, flopCards);
-
-	    //AXIOS REQUEST HERE FOR DEALING CARDS? NOPE
-	  },
-
 	  render: function render() {
-	    console.log(this.state);
-	    if (typeof this.state.cards !== "undefined") {
+	    if (this.state.game !== {}) {
 	      if (this.state.isDealt) {
+	        var playerCards = this.state.game.players[0].hand;
+	        var flopCards = this.state.game.flop;
 
-	        var cardList = this.state.cards.map(function (card, i) {
+	        var cardList = playerCards.map(function (card, i) {
 	          var className = "user" + i;
 	          card = cardHandle(card);
 	          console.log(card);
 	          return React.createElement(Card, { key: i, number: card.number, symbol: card.symbol, cn: className });
 	        });
-	        var flopCards = this.state.flop[0].map(function (card, i) {
+	        var flop = flopCards.map(function (card, i) {
 	          var className = "flop" + i;
 	          card = cardHandle(card);
 
@@ -2919,7 +2906,7 @@
 	      }
 	    } else {
 	      var cardList = "Click Deal";
-	      var flopCards = "Click Deal";
+	      var flop = "Click Deal";
 	    }
 
 	    return React.createElement(
@@ -2934,7 +2921,7 @@
 	      React.createElement(
 	        'div',
 	        { className: 'flopCards' },
-	        flopCards,
+	        flop,
 	        '  '
 	      ),
 	      React.createElement(Flop, null)
