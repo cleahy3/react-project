@@ -105,6 +105,9 @@ function handleAction(payload) {
         case Constants.DEAL_CARDS:
             GameStore.emit('dealCards');
             break;
+        case Constants.END_ACTION:
+            GameStore.emit('endAction');
+            break;
 
         default:
     }

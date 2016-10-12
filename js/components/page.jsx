@@ -16,6 +16,7 @@ var Page = React.createClass ({
         GameStore.on('showHome', this.showHomePage);
         GameStore.on('showLogin', this.showLoginPage);
         GameStore.on('submitLogin', this.submitLogin);
+        GameStore.on('endAction', this.endAction);
 
     },
     showHomePage: function(){
@@ -47,6 +48,14 @@ var Page = React.createClass ({
       GameStore.setGame(name);
      
     },
+    endAction: function(name){
+      this.setState({
+        showHome: true,
+        showLogin: false,
+        submitLogin: false
+      })
+      GameStore.getEnd();
+      },
     render: function(){
 
        var page;

@@ -83,6 +83,7 @@
 	    GameStore.on('showHome', this.showHomePage);
 	    GameStore.on('showLogin', this.showLoginPage);
 	    GameStore.on('submitLogin', this.submitLogin);
+	    GameStore.on('endAction', this.endAction);
 	  },
 	  showHomePage: function showHomePage() {
 	
@@ -109,6 +110,14 @@
 	    });
 	    GameStore.getEnd();
 	    GameStore.setGame(name);
+	  },
+	  endAction: function endAction(name) {
+	    this.setState({
+	      showHome: true,
+	      showLogin: false,
+	      submitLogin: false
+	    });
+	    GameStore.getEnd();
 	  },
 	  render: function render() {
 	
@@ -863,6 +872,9 @@
 	            break;
 	        case Constants.DEAL_CARDS:
 	            GameStore.emit('dealCards');
+	            break;
+	        case Constants.END_ACTION:
+	            GameStore.emit('endAction');
 	            break;
 	
 	        default:
