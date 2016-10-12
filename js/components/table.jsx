@@ -42,12 +42,12 @@ var Table = React.createClass({
   },
 
   render: function(){
-    console.log(this.state);
+
     if (this.state.isDealt) {
 
       var cardList = this.state.cards.map( function(card, i){
         var className= "user" + i;
-        console.log(card)
+
         return(
            <Card key={i} number={card.Number} suit={card.Suit} cn={className} />
           )
