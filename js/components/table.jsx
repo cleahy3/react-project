@@ -20,9 +20,10 @@ var Table = React.createClass({
 
   },
 
-  setCardsState: function(cards) {
+  setCardsState: function(cards, flopCards) {
     this.setState({
       cards: cards,
+      flop: flopCards,
       isDealt: true
     });
   },
@@ -32,31 +33,39 @@ var Table = React.createClass({
 
     var deal = GameStore.getCards();
     var cards = GameStore.getGame().players[0].hand;
+    var flopCards = GameStore.getGame().flop;
 
-    return this.setCardsState(cards);
+    return this.setCardsState(cards, flopCards);
 
     //AXIOS REQUEST HERE FOR DEALING CARDS? NOPE
 
   },
 
   render: function(){
-
+    console.log(this.state);
     if (this.state.isDealt) {
 
       var cardList = this.state.cards.map( function(card, i){
         var className= i+"user";
         console.log(card)
         return(
-          <Card key={i} number={card.Number} suit={card.Suit} cn={className} />
+           <Card key={i} number={card.Number} suit={card.Suit} cn={className} />
           )
       })
+      var flopCards = this.state.flop[0].map( function(card, i){
+        var className = i+"flop";
+          return(
+            <Card key={i} number={card.Number} suit={card.Suit} cn={className} />
+          )
+        })
     }
 
 
     return (
       <div>
         <span id="poker-table"></span>
-        <div>{cardList}</div>
+        <div className="userCards">{cardList}</div>
+        <div className="flopCards">{flopCards}  </div>
         <Flop />
       </div>
     )

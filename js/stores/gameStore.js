@@ -57,6 +57,7 @@ var GameStore = merge(EventEmitter.prototype, {
                 .then(function(response) {
                     _game.players[0].hand.push(response.data.user.hand[0]);
                     _game.players[0].hand.push(response.data.user.hand[1]);
+                    _game.flop.push(response.data.flop);
                     return playerCards
                 }).catch(function(error) {
                     console.log(error);

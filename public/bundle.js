@@ -814,6 +814,7 @@
 	        axios.get('http://178.62.86.6/api/deal').then(function (response) {
 	            _game.players[0].hand.push(response.data.user.hand[0]);
 	            _game.players[0].hand.push(response.data.user.hand[1]);
+	            _game.flop.push(response.data.flop);
 	            return playerCards;
 	        }).catch(function (error) {
 	            console.log(error);
@@ -3001,9 +3002,10 @@
 	    GameStore.on('dealCards', this.dealCards);
 	  },
 	
-	  setCardsState: function setCardsState(cards) {
+	  setCardsState: function setCardsState(cards, flopCards) {
 	    this.setState({
 	      cards: cards,
+	      flop: flopCards,
 	      isDealt: true
 	    });
 	  },
@@ -3013,19 +3015,24 @@
 	
 	    var deal = GameStore.getCards();
 	    var cards = GameStore.getGame().players[0].hand;
+	    var flopCards = GameStore.getGame().flop;
 	
-	    return this.setCardsState(cards);
+	    return this.setCardsState(cards, flopCards);
 	
 	    //AXIOS REQUEST HERE FOR DEALING CARDS? NOPE
 	  },
 	
 	  render: function render() {
-	
+	    console.log(this.state);
 	    if (this.state.isDealt) {
 	
 	      var cardList = this.state.cards.map(function (card, i) {
 	        var className = i + "user";
 	        console.log(card);
+	        return React.createElement(Card, { key: i, number: card.Number, suit: card.Suit, cn: className });
+	      });
+	      var flopCards = this.state.flop[0].map(function (card, i) {
+	        var className = i + "flop";
 	        return React.createElement(Card, { key: i, number: card.Number, suit: card.Suit, cn: className });
 	      });
 	    }
@@ -3036,8 +3043,14 @@
 	      React.createElement('span', { id: 'poker-table' }),
 	      React.createElement(
 	        'div',
-	        null,
+	        { className: 'userCards' },
 	        cardList
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'flopCards' },
+	        flopCards,
+	        '  '
 	      ),
 	      React.createElement(Flop, null)
 	    );
@@ -3098,7 +3111,6 @@
 	  displayName: 'Card',
 	
 	  render: function render() {
-	    console.log(this.props);
 	    return React.createElement(
 	      'div',
 	      { className: this.props.cn },
