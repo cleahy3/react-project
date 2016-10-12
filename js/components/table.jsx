@@ -1,12 +1,12 @@
 var Flop = require('./flop.jsx');
 var GameStore = require('../stores/gameStore.js');
 var Card = require('./card.jsx');
-var isDealt= false;
 var cardObj;
 var Table = React.createClass({
   getInitialState: function(){
     return {
-      cards: {}
+      cards: {},
+      isDealt: false
     }
   },
   componentWillMount: function(){
@@ -21,9 +21,9 @@ var Table = React.createClass({
   },
 
   setCardsState: function(cards) {
-    isDealt = true;
     this.setState({
-      cards: cards
+      cards: cards,
+      isDealt: true
     });
   },
 
@@ -31,23 +31,19 @@ var Table = React.createClass({
     console.log("DEAL CARDS HERE");
 
     var deal = GameStore.getCards();
+    var cards = GameStore.getGame().players[0].hand;
 
-    var _cards = deal;
-    return this.setCardsState(_cards);
+    return this.setCardsState(cards);
 
     //AXIOS REQUEST HERE FOR DEALING CARDS?
 
   },
 
   render: function(){
-    console.log(JSON.parse(this.state.cards));
 
-    var userCards = JSON.parse(JSON.stringify(this.state.cards));
-    console.log(JSON.stringify(userCards.user));
-    console.log(userCards);
-    if (isDealt) {
+    if (this.state.isDealt) {
 
-      var cardList = this.state.userCards.map( function(card, i){
+      var cardList = this.state.cards.map( function(card, i){
 
         console.log('mapping like a badman')
         return(

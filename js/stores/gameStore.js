@@ -4,11 +4,23 @@ var appDispatcher = require('../dispatchers/appDispatcher.js');
 var Constants = require('../constants/constants.js');
 
 var axios = require('axios');
-var _game = {};
+var _game = {
+    flop: [],
+    round: 0,
+    pop: 0,
+    players: [
+        {
+            hand: []
+        },
+        {
+            hand: []
+        }
+    ]
+};
 var cards = {};
-var deal = {}
+var deal = {};
 var player = {};
-
+var playerCards = [];
 
 
 var GameStore = merge(EventEmitter.prototype, {
@@ -43,26 +55,17 @@ var GameStore = merge(EventEmitter.prototype, {
         getCards: function() {
             axios.get('http://178.62.86.6/api/deal')
                 .then(function(response) {
-                    player.hand = response.data.user.hand;
-                    deal.flop =
-                        response.data.flop;
-                    deal.user =
-                        response.data.user.hand;
-                    deal.computer =
-                        response.data.computer.hand;
-
-                    return deal
-
+                    _game.players[0].hand.push(response.data.user.hand[0]);
+                    _game.players[0].hand.push(response.data.user.hand[1]);
+                    return playerCards
                 }).catch(function(error) {
                     console.log(error);
-                });
-
-                return deal
-
+                });                
         },
 
         getDeal: function() {
-          console.log(deal)
+          console.log(playerCards["[[PromiseValue]]"]
+);
             return deal
         }
     })
