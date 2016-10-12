@@ -107,6 +107,7 @@ function handleAction(payload) {
             break;
         case Constants.END_ACTION:
             GameStore.emit('endAction');
+            this.reload();
             break;
 
         default:

@@ -875,6 +875,7 @@
 	            break;
 	        case Constants.END_ACTION:
 	            GameStore.emit('endAction');
+	            this.reload();
 	            break;
 	
 	        default:
@@ -3249,6 +3250,13 @@
 	  componentDidMount: function componentDidMount() {
 	
 	    GameStore.on('submitLogin', this.loggedIn);
+	    GaneStore.on('endAction', this.restart);
+	  },
+	  restart: function restart() {
+	    this.setState({
+	      loggedIn: false
+	    });
+	    this.forceUpdate();
 	  },
 	  loggedIn: function loggedIn() {
 	    this.setState({

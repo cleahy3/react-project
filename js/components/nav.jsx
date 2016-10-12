@@ -12,7 +12,14 @@ var Navigation = React.createClass ({
     componentDidMount: function(){
 
         GameStore.on('submitLogin', this.loggedIn);
+        GaneStore.on('endAction',this.restart);
 
+    },
+    restart: function (){
+      this.setState({
+        loggedIn: false
+      });
+      this.forceUpdate();
     },
     loggedIn: function(){
       this.setState({
