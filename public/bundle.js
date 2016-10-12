@@ -797,7 +797,7 @@
 	        });
 	    },
 	    setGame: function setGame() {
-	        axios.post('http://178.62.86.6/api/game', [{
+	        axios.post('http://localhost:3000/game', [{
 	            "name": player.name,
 	            "isComputer": false
 	        }, {
@@ -815,7 +815,7 @@
 	            _game.players[0].hand.push(response.data.user.hand[0]);
 	            _game.players[0].hand.push(response.data.user.hand[1]);
 	            _game.flop.push(response.data.flop);
-	            console.log(response.data);
+	
 	            return playerCards;
 	        }).catch(function (error) {
 	            console.log(error);
