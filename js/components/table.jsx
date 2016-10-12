@@ -43,26 +43,31 @@ var Table = React.createClass({
 
   render: function(){
     console.log(this.state);
-    if (this.state.isDealt) {
+    if(typeof this.state.cards !== "undefined"){
+      if (this.state.isDealt) {
 
-      var cardList = this.state.cards.map( function(card, i){
-        var className= "user" + i;
-        card = cardHandle(card);
-        console.log(card)
-        return(
-           <Card key={i} number={card.number} symbol={card.symbol} cn={className} />
-          )
-      })
-      var flopCards = this.state.flop[0].map( function(card, i){
-        var className = "flop"+i;
-        card = cardHandle(card);
-
+        var cardList = this.state.cards.map( function(card, i){
+          var className= "user" + i;
+          card = cardHandle(card);
+          console.log(card)
           return(
-            <Card key={i} number={card.number} symbol={card.symbol} cn={className} />
-          )
+             <Card key={i} number={card.number} symbol={card.symbol} cn={className} />
+            )
         })
-    }
+        var flopCards = this.state.flop[0].map( function(card, i){
+          var className = "flop"+i;
+          card = cardHandle(card);
 
+            return(
+              <Card key={i} number={card.number} symbol={card.symbol} cn={className} />
+            )
+          })
+      }
+    }
+    else{
+      var cardList = "Click Deal";
+      var flopCards = "Click Deal";
+    }
 
     return (
       <div>
