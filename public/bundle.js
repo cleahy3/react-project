@@ -2941,17 +2941,17 @@
 	  var cardColour;
 	  var number;
 
-	  if (card.card == "Diamonds") {
-	    symbol = "&diams;";
+	  if (card.Suit == "Diamonds") {
+	    symbol = String.fromCharCode(9830);
 	    cardColour = "#FF0000 ";
-	  } else if (card.card == "Spades") {
-	    symbol = "&spades;";
+	  } else if (card.Suit == "Spades") {
+	    symbol = String.fromCharCode(9829);
 	    cardColour = "#000000 ";
-	  } else if (card.card == "Hearts") {
-	    symbol = "&hearts;";
+	  } else if (card.Suit == "Hearts") {
+	    symbol = String.fromCharCode(9829);
 	    cardColour = "#FF0000 ";
-	  } else if (card.card == "Clubs") {
-	    symbol = "&clubs;";
+	  } else if (card.Suit == "Clubs") {
+	    symbol = String.fromCharCode(9827);
 	    cardColour = "#000000 ";
 	  }
 	  number = card.Number;
@@ -3030,8 +3030,16 @@
 	      React.createElement(
 	        'p',
 	        null,
-	        this.props.number,
-	        this.props.suit,
+	        this.props.number
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        this.props.suit
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
 	        this.props.symbol
 	      )
 	    );
