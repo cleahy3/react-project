@@ -791,7 +791,7 @@
 	        return _game;
 	    },
 	    getEnd: function getEnd() {
-	        axios.get('http://178.62.86.6/api/end').then(function (response) {
+	        axios.get('http://localhost:3000/end').then(function (response) {
 	
 	            return response;
 	        });
@@ -811,10 +811,11 @@
 	        });
 	    },
 	    getCards: function getCards() {
-	        axios.get('http://178.62.86.6/api/deal').then(function (response) {
+	        axios.get('http://localhost:3000/deal').then(function (response) {
 	            _game.players[0].hand.push(response.data.user.hand[0]);
 	            _game.players[0].hand.push(response.data.user.hand[1]);
 	            _game.flop.push(response.data.flop);
+	            console.log(response.data);
 	            return playerCards;
 	        }).catch(function (error) {
 	            console.log(error);
@@ -822,7 +823,7 @@
 	    },
 	
 	    getDeal: function getDeal() {
-	        console.log(playerCards["[[PromiseValue]]"]);
+	
 	        return deal;
 	    }
 	});
@@ -3023,12 +3024,12 @@
 	  },
 	
 	  render: function render() {
-	    console.log(this.state);
+	
 	    if (this.state.isDealt) {
 	
 	      var cardList = this.state.cards.map(function (card, i) {
 	        var className = "user" + i;
-	        console.log(card);
+	
 	        return React.createElement(Card, { key: i, number: card.Number, suit: card.Suit, cn: className });
 	      });
 	      var flopCards = this.state.flop[0].map(function (card, i) {
