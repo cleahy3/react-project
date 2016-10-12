@@ -8,14 +8,11 @@ var _game = {
     flop: [],
     round: 0,
     pop: 0,
-    players: [
-        {
-            hand: []
-        },
-        {
-            hand: []
-        }
-    ]
+    players: [{
+        hand: []
+    }, {
+        hand: []
+    }]
 };
 var cards = {};
 var deal = {};
@@ -29,7 +26,7 @@ var GameStore = merge(EventEmitter.prototype, {
             return _game
         },
         getEnd: function() {
-            axios.get('http://178.62.86.6/api/end')
+            axios.get('http://localhost:3000/end')
                 .then(function(response) {
 
                     return response;
@@ -37,7 +34,7 @@ var GameStore = merge(EventEmitter.prototype, {
                 });
         },
         setGame: function() {
-            axios.post('http://178.62.86.6/api/game', [{
+            axios.post('http://localhost:3000/game', [{
                     "name": player.name,
                     "isComputer": false
                 }, {
@@ -53,11 +50,12 @@ var GameStore = merge(EventEmitter.prototype, {
             });
         },
         getCards: function() {
-            axios.get('http://178.62.86.6/api/deal')
+            axios.get('http://localhost:3000/deal')
                 .then(function(response) {
                     _game.players[0].hand.push(response.data.user.hand[0]);
                     _game.players[0].hand.push(response.data.user.hand[1]);
                     _game.flop.push(response.data.flop);
+
                     return playerCards
                 }).catch(function(error) {
                     console.log(error);
@@ -65,8 +63,8 @@ var GameStore = merge(EventEmitter.prototype, {
         },
 
         getDeal: function() {
-          console.log(playerCards["[[PromiseValue]]"]
-);
+
+
             return deal
         }
     })
