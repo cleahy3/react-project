@@ -3027,12 +3027,12 @@
 	    if (this.state.isDealt) {
 	
 	      var cardList = this.state.cards.map(function (card, i) {
-	        var className = i + "user";
+	        var className = "user" + i;
 	        console.log(card);
 	        return React.createElement(Card, { key: i, number: card.Number, suit: card.Suit, cn: className });
 	      });
 	      var flopCards = this.state.flop[0].map(function (card, i) {
-	        var className = i + "flop";
+	        var className = "flop" + i;
 	        return React.createElement(Card, { key: i, number: card.Number, suit: card.Suit, cn: className });
 	      });
 	    }
@@ -3040,19 +3040,21 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement('span', { id: 'poker-table' }),
 	      React.createElement(
-	        'div',
-	        { className: 'userCards' },
-	        cardList
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'flopCards' },
-	        flopCards,
-	        '  '
-	      ),
-	      React.createElement(Flop, null)
+	        'span',
+	        { id: 'poker-table' },
+	        React.createElement(
+	          'div',
+	          { className: 'userCards' },
+	          cardList
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'flopCards' },
+	          flopCards,
+	          '  '
+	        )
+	      )
 	    );
 	  }
 	});

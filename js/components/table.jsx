@@ -63,10 +63,11 @@ var Table = React.createClass({
 
     return (
       <div>
-        <span id="poker-table"></span>
+        <span id="poker-table">
         <div className="userCards">{cardList}</div>
         <div className="flopCards">{flopCards}  </div>
-        <Flop />
+        
+        </span>
       </div>
     )
   }

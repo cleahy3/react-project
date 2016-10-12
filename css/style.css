@@ -37,4 +37,17 @@ nav{
   display: block;
   background-repeat: no-repeat;
   background-size: contain;
-  background-position: center; }
+  background-position: center; 
+}
+
+
+.flopCards{
+
+  background: white;
+  max-width: 40px;
+  max-height: 60px;
+  color: black;
+  display: inline; 
+
+
+}
