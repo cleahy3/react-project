@@ -37,17 +37,32 @@ nav{
   display: block;
   background-repeat: no-repeat;
   background-size: contain;
-  background-position: center; 
-}
+
+  background-position: center; }
 
 
-.flopCards{
+  .user0 {
+      background: #FFFFFF;
+      height: 67px;
+      width: 40px;
+      border-style: solid #000000;
+      border-radius: 5px;
+      border-width: 2px;
+      border-color: #000000;
+      color: #000000;
+      border-style: solid;
+      border-width: 2px;
+  }
 
-  background: white;
-  max-width: 40px;
-  max-height: 60px;
-  color: black;
-  display: inline; 
-
-
-}
+  .user1 {
+      background: #FFFFFF;
+      height: 67px;
+      width: 40px;
+      border-style: solid #000000;
+      border-radius: 5px;
+      border-width: 2px;
+      border-color: #000000;
+      color: #000000;
+      border-style: solid;
+      border-width: 2px;
+  }
