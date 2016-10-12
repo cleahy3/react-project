@@ -2869,9 +2869,7 @@
 	    };
 	  },
 	  componentWillMount: function componentWillMount() {
-
 	    //GameStore.getCards();
-
 	  },
 
 	  componentDidMount: function componentDidMount() {

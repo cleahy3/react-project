@@ -10,9 +10,7 @@ var Table = React.createClass({
     }
   },
   componentWillMount: function(){
-
     //GameStore.getCards();
-
   },
 
   componentDidMount: function(){
