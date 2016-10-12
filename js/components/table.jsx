@@ -46,14 +46,14 @@ var Table = React.createClass({
     if (this.state.isDealt) {
 
       var cardList = this.state.cards.map( function(card, i){
-        var className= i+"user";
+        var className= "user" + i;
         console.log(card)
         return(
            <Card key={i} number={card.Number} suit={card.Suit} cn={className} />
           )
       })
       var flopCards = this.state.flop[0].map( function(card, i){
-        var className = i+"flop";
+        var className = "flop"+i;
           return(
             <Card key={i} number={card.Number} suit={card.Suit} cn={className} />
           )
