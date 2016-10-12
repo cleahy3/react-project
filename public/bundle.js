@@ -824,11 +824,6 @@
 	            _game.players[0].hand.push(response.data.user.hand[0]);
 	            _game.players[0].hand.push(response.data.user.hand[1]);
 	            _game.flop.push(response.data.flop);
-<<<<<<< HEAD
-	
-	            return playerCards;
-=======
->>>>>>> 46fe879ac3e427e214d2b119262aea6f41089b76
 	        }).catch(function (error) {
 	            console.log(error);
 	        });
@@ -877,14 +872,10 @@
 	            GameStore.getCards();
 	            return GameStore.emit('dealCards');
 	            break;
-<<<<<<< HEAD
 	        case Constants.END_ACTION:
 	            GameStore.emit('endAction');
-	            this.reload();
+	            location.reload();
 	            break;
-	
-=======
->>>>>>> 46fe879ac3e427e214d2b119262aea6f41089b76
 	        default:
 	            break;
 	    }
@@ -3014,60 +3005,27 @@
 	    };
 	  },
 	  componentWillMount: function componentWillMount() {
-<<<<<<< HEAD
-	
-=======
->>>>>>> 46fe879ac3e427e214d2b119262aea6f41089b76
 	    //GameStore.getCards();
 	  },
 	
 	  componentDidMount: function componentDidMount() {
-<<<<<<< HEAD
-	
-	    GameStore.on('dealCards', this.dealCards);
-	  },
-	
-	  setCardsState: function setCardsState(cards, flopCards) {
-=======
 	    GameStore.on('dealCards', this.setCardsState);
 	  },
-
+	
 	  setCardsState: function setCardsState() {
->>>>>>> 46fe879ac3e427e214d2b119262aea6f41089b76
 	    this.setState({
 	      game: GameStore.getGame(),
 	      isDealt: true
 	    });
 	  },
-<<<<<<< HEAD
 	
-	  dealCards: function dealCards() {
-	    console.log("DEAL CARDS HERE");
-	
-	    var deal = GameStore.getCards();
-	    var cards = GameStore.getGame().players[0].hand;
-	    var flopCards = GameStore.getGame().flop;
-	
-	    return this.setCardsState(cards, flopCards);
-	
-	    //AXIOS REQUEST HERE FOR DEALING CARDS? NOPE
-	  },
-	
-=======
-
->>>>>>> 46fe879ac3e427e214d2b119262aea6f41089b76
 	  render: function render() {
 	    if (this.state.game !== {}) {
 	      if (this.state.isDealt) {
-<<<<<<< HEAD
-	
-	        var cardList = this.state.cards.map(function (card, i) {
-=======
 	        var playerCards = this.state.game.players[0].hand;
 	        var flopCards = this.state.game.flop;
-
+	
 	        var cardList = playerCards.map(function (card, i) {
->>>>>>> 46fe879ac3e427e214d2b119262aea6f41089b76
 	          var className = "user" + i;
 	          card = cardHandle(card);
 	          console.log(card);
