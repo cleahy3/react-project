@@ -3160,8 +3160,16 @@
 	      React.createElement(
 	        'p',
 	        null,
-	        this.props.number,
-	        this.props.suit,
+	        this.props.number
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        this.props.suit
+	      ),
+	      React.createElement(
+	        'div',
+	        null,
 	        this.props.symbol
 	      )
 	    );
